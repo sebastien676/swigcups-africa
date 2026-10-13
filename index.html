@@ -449,6 +449,8 @@ html.mkt-za .za-map{display:block}html.mkt-za #africa{display:none}
 .cl-title{font-family:'Anton',sans-serif;letter-spacing:.05em;text-transform:uppercase;color:var(--amber);font-size:.95rem}
 .cl-remove{background:none;border:1px solid rgba(245,240,230,.3);color:var(--sand);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:.8rem}
 .cl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:4px 16px}
+.chk[hidden]{display:none!important}
+.chk.same-addr{margin:4px 0 10px;display:inline-flex;background:none;border:0;padding:6px 0}
 .chk.add-line{margin-top:6px;display:inline-flex;background:none;border:0;padding:6px 0}
 .tech-card .tech-specs .row.moq .val small{display:block;font-size:.72rem;font-weight:600;opacity:.85;text-align:right}
 /* v43 : les 3 encarts « Minimum » ont la même hauteur et restent alignés ; bouton « pays » masqué en mode Afrique du Sud */
@@ -710,12 +712,29 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
         <div class="form-row">
           <div>
             <label for="f-name" data-i18n="q_name"></label>
-            <input id="f-name" name="Nom" required>
+            <input id="f-name" name="Prénom" required autocomplete="given-name">
           </div>
           <div>
-            <label for="f-company" data-i18n="q_company"></label>
-            <input id="f-company" name="Société">
+            <label for="f-surname" data-i18n="q_surname"></label>
+            <input id="f-surname" name="Nom" required autocomplete="family-name">
           </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="f-company" data-i18n="q_company"></label>
+            <input id="f-company" name="Société" autocomplete="organization">
+          </div>
+          <div>
+            <label for="f-vat" data-i18n="q_vat"></label>
+            <input id="f-vat" name="N° TVA / VAT">
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="f-reg" data-i18n="q_reg"></label>
+            <input id="f-reg" name="N° d'enregistrement société">
+          </div>
+          <div></div>
         </div>
         <div class="form-row">
           <div>
@@ -724,7 +743,7 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
           </div>
           <div>
             <label for="f-phone" data-i18n="q_phone"></label>
-            <input id="f-phone" name="Téléphone / WhatsApp" type="tel">
+            <input id="f-phone" name="Téléphone / WhatsApp" type="tel" required autocomplete="tel">
           </div>
         </div>
         <label for="f-country" data-i18n="q_country"></label>
@@ -736,6 +755,13 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
             <option value="ZAR">ZAR — South African Rand</option>
             <option value="EUR">EUR — Euro</option>
           </select>
+        </div>
+
+        <label for="f-caddr" data-i18n="q_caddr"></label>
+        <input id="f-caddr" name="Adresse (coordonnées)" data-i18n-ph="q_address_ph" autocomplete="street-address">
+        <div class="form-row">
+          <div><label for="f-ccity" data-i18n="q_city"></label><input id="f-ccity" name="Ville (coordonnées)" data-i18n-ph="q_city_ph"></div>
+          <div><label for="f-cpost" data-i18n="q_cpost"></label><input id="f-cpost" name="Code postal" autocomplete="postal-code"></div>
         </div>
 
         <!-- Événement -->
@@ -766,6 +792,7 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
         </div>
         <p class="mode-info" id="collect-info" hidden data-i18n="q_collect_info"></p>
         <div id="delivery-fields" hidden>
+          <label class="chk same-addr" id="same-wrap" hidden><input type="checkbox" id="same-addr"> <span data-i18n="q_same"></span></label>
           <label for="f-address" data-i18n="q_address"></label>
           <input id="f-address" name="Adresse de livraison" data-i18n-ph="q_address_ph">
           <div class="form-row">
@@ -898,7 +925,7 @@ fr: {
   q_sec_cups:"Les gobelets",
   q_sec_logistics:"Logistique",
   q_sec_message:"Votre projet",
-  q_name:"Votre nom", q_company:"Société / organisation",
+  q_name:"Prénom", q_surname:"Nom", q_vat:"N° de TVA", q_reg:"N° d'enregistrement de la société", q_caddr:"Adresse", q_cpost:"Code postal", q_same:"Même adresse que mes coordonnées ci-dessus", q_company:"Société / organisation",
   q_email:"Email", q_phone:"Téléphone / WhatsApp", q_country:"Pays",q_currency:"Devise souhaitée pour le devis", q_type:"Type d'événement",
   q_pax:"Nombre de participants", q_pax_ph:"ex. 5000", q_date:"Date de l'événement",
   q_sizes:"Taille(s) et quantité(s)",
@@ -1015,7 +1042,7 @@ en: {
   q_sec_cups:"The cups",
   q_sec_logistics:"Logistics",
   q_sec_message:"Your project",
-  q_name:"Your name", q_company:"Company / organisation",
+  q_name:"First name", q_surname:"Surname", q_vat:"VAT number", q_reg:"Company registration number", q_caddr:"Address", q_cpost:"Postal code", q_same:"Same address as my details above", q_company:"Company / organisation",
   q_email:"Email", q_phone:"Phone / WhatsApp", q_country:"Country",q_currency:"Preferred quote currency", q_type:"Event type",
   q_pax:"Number of attendees", q_pax_ph:"e.g. 5000", q_date:"Event date",
   q_sizes:"Size(s) and quantity",
@@ -1282,10 +1309,13 @@ function sendWhatsApp(){
   };
   const line = (label, val) => val ? `\n• ${label} : ${val}` : "";
   const msg = L.hi
-    + line(L.name, g("f-name"))
+    + line(L.name, (g("f-name") + " " + g("f-surname")).trim())
     + line(L.company, g("f-company"))
     + line(L.email, g("f-email"))
     + line(L.phone, g("f-phone"))
+    + line("VAT", g("f-vat"))
+    + line("Reg.", g("f-reg"))
+    + line(isFr ? "Adresse" : "Address", [g("f-caddr"), g("f-ccity"), g("f-cpost")].filter(Boolean).join(", "))
     + line(L.country, g("f-country"))
     + line(L.type, g("f-type"))
     + line(L.pax, g("f-pax"))
@@ -1433,7 +1463,27 @@ document.getElementById('add-line').addEventListener('change', e => {
 const _setLangMoq = window.setLang;
 window.setLang = function(l){ _setLangMoq(l); refillCupLines(); updateMoq(false); };
 if (!document.querySelector('#cup-lines .cup-line')) addCupLine();
-updateMoq(false);(function(){
+updateMoq(false);/* ===== v44 : « même adresse » entre coordonnées et livraison ===== */
+(function(){
+  const $ = id => document.getElementById(id);
+  const ca = $('f-caddr'), cc = $('f-ccity'), fc = $('f-country'), same = $('same-addr'), wrap = $('same-wrap');
+  const da = $('f-address'), dcity = $('f-city'), dco = $('f-dcountry');
+  const cname = () => fc.selectedIndex >= 0 ? fc.options[fc.selectedIndex].text : '';
+  const sync = () => { if (same.checked) { da.value = ca.value; dcity.value = cc.value; dco.value = cname(); } };
+  function refresh(){
+    const has = !!ca.value.trim();
+    wrap.hidden = !has;
+    if (!has && same.checked) { same.checked = false; apply(); } else sync();
+  }
+  function apply(){
+    [da, dcity].forEach(e => { e.readOnly = same.checked; });
+    if (!same.checked) [da, dcity, dco].forEach(e => { e.value = ''; });
+    sync();
+  }
+  ca.addEventListener('input', refresh); cc.addEventListener('input', sync); fc.addEventListener('change', sync);
+  same.addEventListener('change', apply);
+  refresh();
+})();(function(){
   const f = document.getElementById('quote-form');
   if (!f) return;
   f.addEventListener('submit', e => {
@@ -1448,7 +1498,7 @@ updateMoq(false);(function(){
     const p0 = LD[0] ? LD[0].printIdx : 0, maxC = Math.max(0, ...LD.filter(l => l.printIdx === p0).map(l => l.colourIdx)), firstCup = LD[0] ? LD[0].cupIdx : 0;
     const linesTxt = LD.map((l, i) => (i + 1) + ") " + [l.sizeLabel, l.cupLabel, l.qty, l.printLabel, l.colourLabel].filter(Boolean).join(" · ")).join("\n");
     const payload = {
-      name: v('f-name'), email: v('f-email'), phone: v('f-phone'), company: v('f-company'), country: txt('f-country'),
+      name: [v('f-name'), v('f-surname')].filter(Boolean).join(' '), email: v('f-email'), phone: v('f-phone'), company: v('f-company'), country: txt('f-country'),
       event_type: txt('f-type'), attendees: v('f-pax'), event_date: v('f-date') || null,
       qty_250: qty('250'), qty_330: qty('330'), qty_500: qty('500'),
       print_type: ['unknown','screen','dtf','label'][p0] || 'unknown',
@@ -1457,9 +1507,9 @@ updateMoq(false);(function(){
       artwork: null, artwork_label: '',
       lines: LD.map(l => ({ size: l.size, cup_colour: l.cupLabel, qty: parseInt(l.qty, 10) || 0, print: l.printLabel, print_colours: l.colourLabel })),
       delivery_mode: (f.querySelector('input[data-mode]:checked') || {}).dataset?.mode || null,
-      address: dm() === 'delivery' ? v('f-address') : '', city: dm() === 'delivery' ? v('f-city') : '',
+      address: dm() === 'delivery' ? v('f-address') : v('f-caddr'), city: dm() === 'delivery' ? v('f-city') : v('f-ccity'), postal_code: v('f-cpost'), vat_number: v('f-vat'), registration_number: v('f-reg'),
       delivery_city: dm() === 'delivery' ? v('f-city') : 'Ormonde, Johannesburg (collection)', province: dm() === 'delivery' ? [v('f-province'), v('f-dcountry')].filter(Boolean).join(', ') : '', delivery_country: dm() === 'delivery' ? v('f-dcountry') : '',
-      deadline: v('f-deadline') || null, message: [v('f-msg'), "--- Cup lines ---\n" + linesTxt].filter(Boolean).join("\n\n"),
+      deadline: v('f-deadline') || null, message: [v('f-msg'), "--- Cup lines ---\n" + linesTxt, v('f-caddr') ? "--- Billing address ---\n" + [v('f-caddr'), v('f-ccity'), v('f-cpost'), txt('f-country')].filter(Boolean).join(", ") : ""].filter(Boolean).join("\n\n"),
       currency: (document.getElementById('f-currency') && !document.getElementById('f-currency').disabled) ? v('f-currency') : 'ZAR',
       lang: lang, market: market, source: location.hostname || 'local',
       hp: (f.querySelector('[name=_honey]') || {}).value || ''
