@@ -451,6 +451,9 @@ html.mkt-za .za-map{display:block}html.mkt-za #africa{display:none}
 .cl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:4px 16px}
 .chk.add-line{margin-top:6px;display:inline-flex;background:none;border:0;padding:6px 0}
 .tech-card .tech-specs .row.moq .val small{display:block;font-size:.72rem;font-weight:600;opacity:.85;text-align:right}
+/* v43 : les 3 encarts « Minimum » ont la même hauteur et restent alignés ; bouton « pays » masqué en mode Afrique du Sud */
+.tech-card .tech-specs .row.moq{min-height:112px;box-sizing:border-box;align-items:center}
+html.mkt-za .cta-row a[href="#map"]{display:none}
 
 /* v30 : collecte / livraison */
 .mode-row .chk{background:rgba(245,240,230,.06);border:1px solid rgba(245,240,230,.16);border-radius:10px;padding:10px 14px}
@@ -824,7 +827,7 @@ fr: {
   hero_eyebrow:"Gobelets réutilisables · Événements & festivals",
   hero_title:'Le gobelet réutilisable <span class="amber">de l\'Afrique</span>',
   hero_sub:"Depuis 2014, Swig Cups remplace l'usage unique sur les plus grands événements d'Afrique australe et de l'Est. Festivals, marques, écoles, corporates, événements familiaux (mariages) : il n'y a plus d'excuse pour le jetable.",
-  hero_cta1:"Devis rapide", hero_cta2:"Voir nos pays",
+  hero_cta1:"Devis rapide", hero_cta2:"Pays où nous sommes présents",
   hero_since:"Fondé en Afrique du Sud · 2014",
   stat1_num:"Millions", stat2_num:"Dizaines",
   stat1:"de gobelets jetables évités chaque année", stat2:"de lavages par gobelet", stat3:"de déchets par événement", stat4:"pays servis", stat5:"année de création",
@@ -941,7 +944,7 @@ en: {
   hero_eyebrow:"Reusable cups · Events & festivals",
   hero_title:'Africa\'s <span class="amber">reusable cup</span>',
   hero_sub:"Since 2014, Swig Cups has been replacing single-use at the biggest events across southern and eastern Africa. Festivals, brands, schools, corporates, family celebrations (weddings): there is no more excuse for single-use.",
-  hero_cta1:"Quick quote", hero_cta2:"See our countries",
+  hero_cta1:"Quick quote", hero_cta2:"Countries where we're present",
   hero_since:"Founded in South Africa · 2014",
   stat1_num:"Millions", stat2_num:"Dozens",
   stat1:"single-use cups avoided every year", stat2:"washes per cup", stat3:"waste per event", stat4:"countries served", stat5:"founded",
@@ -1262,7 +1265,7 @@ function sendWhatsApp(){
   const g = id => { const el = document.getElementById(id); return el ? el.value : ""; };
   // tailles cochées
   const sizes = [];
-  cupLineData().forEach((l,i)=>{ sizes.push((i+1) + ") " + [l.sizeLabel, l.cupLabel, l.qty, l.printLabel, l.colourLabel, l.artLabel].filter(Boolean).join(" · ")); });
+  cupLineData().forEach((l,i)=>{ sizes.push((i+1) + ") " + [l.sizeLabel, l.cupLabel, l.qty, l.printLabel, l.colourLabel].filter(Boolean).join(" · ")); });
   const isFr = lang === "fr";
   const L = isFr ? {
     hi:"Bonjour Swig Cups ! Demande de devis :",
@@ -1346,15 +1349,15 @@ function fillSel(sel, arr, ph){
 function cupLineData(){
   return [...document.querySelectorAll('#cup-lines .cup-line')].map(el => {
     const g = c => el.querySelector(c), txt = s => s.selectedIndex >= 0 ? s.options[s.selectedIndex].text : '';
-    const sz = g('.cl-size'), cc = g('.cl-cupcol'), co = g('.cl-colors'), ar = g('.cl-art'), pr = g('.cl-print');
+    const sz = g('.cl-size'), cc = g('.cl-cupcol'), co = g('.cl-colors'), pr = g('.cl-print');
     return { size: sz.value, sizeLabel: sz.value ? txt(sz) : '', qty: g('.cl-qty').value.trim(),
-             cupIdx: cc.selectedIndex, cupLabel: txt(cc), printIdx: pr.selectedIndex, printLabel: txt(pr), colourIdx: co.selectedIndex, colourLabel: txt(co), artIdx: ar.selectedIndex, artLabel: txt(ar) };
+             cupIdx: cc.selectedIndex, cupLabel: txt(cc), printIdx: pr.selectedIndex, printLabel: txt(pr), colourIdx: co.selectedIndex, colourLabel: txt(co) };
   });
 }
 function renumberLines(){
   document.querySelectorAll('#cup-lines .cup-line').forEach((el, i) => {
     const n = i + 1, nm = (c, label) => { el.querySelector(c).name = 'Ligne ' + n + ' - ' + label; };
-    nm('.cl-size', 'Taille'); nm('.cl-print', 'Technique impression'); nm('.cl-cupcol', 'Couleur gobelet'); nm('.cl-qty', 'Quantité'); nm('.cl-colors', 'Couleurs logo'); nm('.cl-art', 'Visuel prêt');
+    nm('.cl-size', 'Taille'); nm('.cl-print', 'Technique impression'); nm('.cl-cupcol', 'Couleur gobelet'); nm('.cl-qty', 'Quantité'); nm('.cl-colors', 'Couleurs logo');
     el.querySelector('.cl-title').textContent = T[lang].q_line_title.replace('{n}', n);
     el.querySelector('.cl-remove').hidden = (i === 0);
   });
@@ -1367,13 +1370,13 @@ function refillCupLines(){
     fillSel(el.querySelector('.cl-cupcol'), D.q_cupcols);
     fillSel(el.querySelector('.cl-print'), D.q_prints);
     fillSel(el.querySelector('.cl-colors'), D.q_colors_opt);
-    fillSel(el.querySelector('.cl-art'), D.q_artworks);
+    
     el.querySelector('.l-size').textContent = D.q_size;
     el.querySelector('.l-cup').textContent = D.q_cupcol;
     el.querySelector('.l-qty').textContent = D.q_qty;
     el.querySelector('.l-col').textContent = D.q_colors;
     el.querySelector('.l-print').textContent = D.q_print;
-    el.querySelector('.l-art').textContent = D.q_artwork;
+    
     el.querySelector('.cl-qty').placeholder = D.q_qty_ph;
     el.querySelector('.cl-remove').textContent = '✕ ' + D.q_remove;
   });
@@ -1391,7 +1394,6 @@ function addCupLine(){
     + '<div><label class="l-qty"></label><input type="number" class="cl-qty" min="1" required></div>'
     + '<div><label class="l-print"></label><select class="cl-print"></select></div>'
     + '<div><label class="l-col"></label><select class="cl-colors"></select></div>'
-    + '<div><label class="l-art"></label><select class="cl-art"></select></div>'
     + '</div>';
   wrap.appendChild(el);
   refillCupLines();
@@ -1443,8 +1445,8 @@ updateMoq(false);(function(){
     const dm = () => { const r = f.querySelector('input[data-mode]:checked'); return r ? r.dataset.mode : ''; };
     const LD = cupLineData();
     const qty = sz => String(LD.filter(l => l.size === sz).reduce((a, l) => a + (parseInt(l.qty, 10) || 0), 0) || '');
-    const p0 = LD[0] ? LD[0].printIdx : 0, maxC = Math.max(0, ...LD.filter(l => l.printIdx === p0).map(l => l.colourIdx)), maxA = Math.max(0, ...LD.map(l => l.artIdx)), firstCup = LD[0] ? LD[0].cupIdx : 0;
-    const linesTxt = LD.map((l, i) => (i + 1) + ") " + [l.sizeLabel, l.cupLabel, l.qty, l.printLabel, l.colourLabel, l.artLabel].filter(Boolean).join(" · ")).join("\n");
+    const p0 = LD[0] ? LD[0].printIdx : 0, maxC = Math.max(0, ...LD.filter(l => l.printIdx === p0).map(l => l.colourIdx)), firstCup = LD[0] ? LD[0].cupIdx : 0;
+    const linesTxt = LD.map((l, i) => (i + 1) + ") " + [l.sizeLabel, l.cupLabel, l.qty, l.printLabel, l.colourLabel].filter(Boolean).join(" · ")).join("\n");
     const payload = {
       name: v('f-name'), email: v('f-email'), phone: v('f-phone'), company: v('f-company'), country: txt('f-country'),
       event_type: txt('f-type'), attendees: v('f-pax'), event_date: v('f-date') || null,
@@ -1452,8 +1454,8 @@ updateMoq(false);(function(){
       print_type: ['unknown','screen','dtf','label'][p0] || 'unknown',
       colours: [null,1,2,3,4,5][maxC] ?? null, colours_label: D.q_colors_opt[maxC] || '',
       cup_colour: ['frosted','black','red','pink','white','purple','blue','yellow','green','orange','dark blue'][firstCup] || 'frosted', cup_colour_label: (LD[0] && LD[0].cupLabel) || '',
-      artwork: ['ready','not_ready','create'][maxA] || null, artwork_label: D.q_artworks[maxA] || '',
-      lines: LD.map(l => ({ size: l.size, cup_colour: l.cupLabel, qty: parseInt(l.qty, 10) || 0, print: l.printLabel, print_colours: l.colourLabel, artwork: l.artLabel })),
+      artwork: null, artwork_label: '',
+      lines: LD.map(l => ({ size: l.size, cup_colour: l.cupLabel, qty: parseInt(l.qty, 10) || 0, print: l.printLabel, print_colours: l.colourLabel })),
       delivery_mode: (f.querySelector('input[data-mode]:checked') || {}).dataset?.mode || null,
       address: dm() === 'delivery' ? v('f-address') : '', city: dm() === 'delivery' ? v('f-city') : '',
       delivery_city: dm() === 'delivery' ? v('f-city') : 'Ormonde, Johannesburg (collection)', province: dm() === 'delivery' ? [v('f-province'), v('f-dcountry')].filter(Boolean).join(', ') : '', delivery_country: dm() === 'delivery' ? v('f-dcountry') : '',
