@@ -6,7 +6,7 @@
 <title>Custom Reusable Event Cups in Africa | Gobelets réutilisables — Swig Cups</title>
 <meta name="description" content="Custom printed reusable cups (250/330/500 ml) for festivals, weddings and brands across Africa. Made in Johannesburg since 2014. Gobelets réutilisables personnalisés.">
 <link rel="canonical" href="https://www.swigcups.africa/">
-<link rel="alternate" hreflang="en-za" href="https://swigcups.co.za/">
+
 <link rel="alternate" hreflang="en" href="https://www.swigcups.africa/">
 <link rel="alternate" hreflang="fr" href="https://www.swigcups.africa/">
 <link rel="alternate" hreflang="x-default" href="https://www.swigcups.africa/">
@@ -26,7 +26,7 @@
 <meta property="og:locale" content="en_GB">
 <meta property="og:locale:alternate" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Swig Cups", "alternateName": "Swig Cups Africa", "legalName": "Greenvolved", "url": "https://www.swigcups.africa/", "logo": "https://www.swigcups.africa/images/logo.png", "foundingDate": "2014", "description": "Custom reusable polypropylene cups for festivals, brands and events across Africa.", "areaServed": ["South Africa", "Eswatini", "Zimbabwe", "Mozambique", "Botswana", "Zambia", "Kenya", "Tanzania", "Lesotho", "Mauritius", "Réunion"], "sameAs": ["https://swigcups.co.za/"], "address": {"@type": "PostalAddress", "addressLocality": "Johannesburg", "addressCountry": "ZA"}, "knowsAbout": ["reusable cups", "custom printed cups", "screen printing", "DTF UV printing", "festival cups", "event cups", "wedding cups", "gobelets réutilisables"], "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "telephone": "+27609262367", "availableLanguage": ["English", "French"]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Swig Cups", "alternateName": "Swig Cups Africa", "legalName": "Greenvolved", "url": "https://www.swigcups.africa/", "logo": "https://www.swigcups.africa/images/logo.png", "foundingDate": "2014", "description": "Custom reusable polypropylene cups for festivals, brands and events across Africa.", "areaServed": ["South Africa", "Eswatini", "Zimbabwe", "Mozambique", "Botswana", "Zambia", "Kenya", "Tanzania", "Lesotho", "Mauritius", "Réunion"], "address": {"@type": "PostalAddress", "addressLocality": "Johannesburg", "addressCountry": "ZA"}, "knowsAbout": ["reusable cups", "custom printed cups", "screen printing", "DTF UV printing", "festival cups", "event cups", "wedding cups", "gobelets réutilisables"], "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "telephone": "+27609262367", "availableLanguage": ["English", "French"]}}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Swig Cups Africa", "url": "https://www.swigcups.africa/", "inLanguage": ["en", "fr"], "publisher": {"@type": "Organization", "name": "Swig Cups"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -162,6 +162,15 @@ header{position:sticky;top:0;z-index:50;background:rgba(30,20,11,.94);backdrop-f
 @media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.steps{grid-template-columns:1fr}}
 .step{background:var(--white);border-radius:var(--radius);padding:28px 24px;box-shadow:0 4px 18px rgba(30,20,11,.06)}
+/* v46 : vidéo « Comment ça marche » (vignette cliquable, le lecteur YouTube ne se charge qu'au clic) */
+.how-video{margin:44px auto 0;max-width:440px;text-align:center}
+.yt-facade{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:var(--radius);overflow:hidden;cursor:pointer;background:#000;padding:0;box-shadow:0 8px 28px rgba(30,20,11,.18)}
+.yt-facade img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.yt-facade:hover img,.yt-facade:focus-visible img{transform:scale(1.04)}
+.yt-facade .yt-play{position:absolute;inset:0;margin:auto;width:68px;height:68px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,.35)}
+.yt-facade .yt-play::before{content:"";margin-left:5px;border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent var(--ink)}
+.how-video iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:var(--radius);display:block}
+.how-video-cap{margin-top:12px;font-weight:700;color:var(--muted)}
 .step .ico{font-size:1.9rem;display:block;margin-bottom:14px}
 .step h3{font-size:1.05rem;color:var(--green);margin-bottom:8px}
 .step p{font-size:.92rem;color:var(--muted)}
@@ -666,6 +675,13 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
       <div class="step"><span class="ico">💰</span><h3 data-i18n="how3_t"></h3><p data-i18n="how3_p"></p></div>
       <div class="step"><span class="ico">📦</span><h3 data-i18n="how4_t"></h3><p data-i18n="how4_p"></p></div>
     </div>
+    <div class="how-video">
+      <button type="button" class="yt-facade" id="yt-how" data-vid="gX-ar04Cak0" aria-label="Play video">
+        <img src="https://i.ytimg.com/vi/gX-ar04Cak0/hqdefault.jpg" alt="Swig Cups — how it works" loading="lazy" width="480" height="360">
+        <span class="yt-play"></span>
+      </button>
+      <p class="how-video-cap" data-i18n="how_video"></p>
+    </div>
   </div>
 </section>
 
@@ -838,7 +854,7 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
       <img class="footer-badge fb-intl" src="images/footer-intl.png" alt="Swig Africa"><img class="footer-badge fb-za" src="images/footer-za.png" alt="Swig Africa">
       <div>© <span id="year"></span> Swig Cups — Greenvolved T/A · <span data-i18n="f_tag"></span></div>
     </div>
-    <div><span data-i18n="f_za"></span> <a href="https://swigcups.co.za" target="_blank" rel="noopener">swigcups.co.za</a></div>
+    
   </div>
 </footer>
 <a class="wa-float" id="wa-float" href="https://wa.me/27609262367" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
@@ -863,7 +879,7 @@ fr: {
   map_lede:"Basés en Afrique du Sud, nous livrons et opérons dans toute l'Afrique australe, l'Afrique de l'Est et l'océan Indien.",
   cc_cta:"Demander un devis",
   how_eyebrow:"Le système de consigne",
-  how_title:"Comment ça marche",
+  how_title:"Comment ça marche", how_video:"Voir comment ça marche en vidéo",
   how_lede:"Un système simple, éprouvé sur des centaines d'événements, qui transforme chaque festivalier en acteur du zéro déchet.",
   how1_t:"Consigne à la première boisson", how1_p:"Le client paie une petite consigne (équivalent ~1 USD, adaptée à chaque pays) avec sa première boisson.",
   how2_t:"Réutilisation toute la journée", how2_p:"Le même gobelet est échangé propre à chaque nouvelle boisson, du premier au dernier verre.",
@@ -980,7 +996,7 @@ en: {
   map_lede:"Based in South Africa, we deliver and operate across southern Africa, East Africa and the Indian Ocean.",
   cc_cta:"Request a quote",
   how_eyebrow:"The deposit system",
-  how_title:"How it works",
+  how_title:"How it works", how_video:"Watch how it works",
   how_lede:"A simple system, proven across hundreds of events, that turns every festival-goer into a zero-waste player.",
   how1_t:"Deposit with the first drink", how1_p:"The customer pays a small deposit (roughly 1 USD, adapted to each country) with their first drink.",
   how2_t:"Reused all day long", how2_p:"The same cup is swapped for a clean one with every new drink, from the first to the last.",
@@ -1162,7 +1178,13 @@ const AFRICA = [
 let lang = "fr";
 let currentCountry = "za";
 let market = "intl";
-try{ if(localStorage.getItem("swig-market") === "za") market = "za"; }catch(e){}
+try{
+  /* Priorité : ?m=za ou ?m=intl (lien de redirection depuis swigcups.co.za) > choix mémorisé du visiteur */
+  const qm = new URLSearchParams(location.search).get("m");
+  if(qm === "za" || qm === "intl"){ market = qm; localStorage.setItem("swig-market", qm); }
+  else if(localStorage.getItem("swig-market") === "za") market = "za";
+}catch(e){}
+if(/(^|\.)swigcups\.co\.za$/i.test(location.hostname)) market = "za";
 
 function detectLang(){
   // 1) Si le visiteur a déjà choisi une langue via le toggle, on la respecte toujours.
@@ -1536,57 +1558,37 @@ try{
   }
 }catch(e){}
 
-/* ---------- Bannière géo Afrique du Sud ---------- */
+/* ---------- Vidéo « Comment ça marche » : le lecteur YouTube ne se charge qu'au clic ---------- */
 (function(){
-  const banner = document.getElementById("geo-banner");
-  const goBtn = document.getElementById("geo-go");
-  const closeBtn = document.getElementById("geo-close");
-
-  // Met à jour le libellé du bouton selon la langue courante
-  function refreshGoLabel(){
-    goBtn.textContent = T[lang].geo_go;
-  }
-
-  function showBanner(){
-    refreshGoLabel();
-    banner.hidden = false;
-  }
-  function dismiss(){
-    banner.hidden = true;
-    try{ localStorage.setItem("swig-geo-dismissed", "1"); }catch(e){}
-  }
-  closeBtn.addEventListener("click", dismiss);
-  // Si le visiteur clique pour aller sur .co.za, on considère aussi la bannière traitée
-  goBtn.addEventListener("click", ()=>{ try{ localStorage.setItem("swig-geo-dismissed","1"); }catch(e){} });
-
-  // Ne rien faire si déjà fermée précédemment
-  let dismissed = false;
-  try{ dismissed = localStorage.getItem("swig-geo-dismissed") === "1"; }catch(e){}
-  if(dismissed) return;
-
-  // Détection du pays via un service de géo-IP (gratuit, sans clé).
-  // En cas d'échec ou de lenteur, on ne montre simplement rien : le site reste normal.
+  const b = document.getElementById("yt-how"); if(!b) return;
+  b.addEventListener("click", () => {
+    const f = document.createElement("iframe");
+    f.src = "https://www.youtube-nocookie.com/embed/" + b.dataset.vid + "?autoplay=1&rel=0";
+    f.title = "Swig Cups — how it works";
+    f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    f.allowFullscreen = true;
+    b.replaceWith(f);
+  });
+})();
+/* ---------- Visiteur en Afrique du Sud -> version Afrique du Sud (automatique, sans mémoriser ; le choix manuel reste prioritaire) ---------- */
+(function(){
+  let saved = null;
+  try{ saved = localStorage.getItem("swig-market"); }catch(e){}
+  if(saved || market === "za") return;
   const controller = new AbortController();
-  const timeout = setTimeout(()=>controller.abort(), 2500); // garde-fou : 2,5s max
-
+  const timeout = setTimeout(()=>controller.abort(), 2500);
   fetch("https://ipapi.co/json/", {signal: controller.signal})
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(data => {
       clearTimeout(timeout);
-      if(data && data.country_code === "ZA"){
-        showBanner();
+      let chosen = null; try{ chosen = localStorage.getItem("swig-market"); }catch(e){}
+      if(data && data.country_code === "ZA" && !chosen){
+        market = "za"; setLang(lang);
+        if(typeof updateCurrencyRow === "function") updateCurrencyRow();
       }
     })
-    .catch(()=>{ clearTimeout(timeout); /* silencieux : pas de bannière */ });
-
-  // Si la langue change pendant que la bannière est visible, on rafraîchit le bouton
-  const origSetLang = window.setLang;
-  window.setLang = function(l){
-    origSetLang(l);
-    if(!banner.hidden) refreshGoLabel();
-  };
+    .catch(()=>{ clearTimeout(timeout); });
 })();
-
 </script>
 </body>
 </html>
