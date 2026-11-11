@@ -1183,8 +1183,12 @@ let currentCountry = "za";
 let market = "intl";
 try{
   /* Priorité : ?m=za ou ?m=intl (lien de redirection depuis swigcups.co.za) > choix mémorisé du visiteur */
-  const qm = new URLSearchParams(location.search).get("m");
-  if(qm === "za" || qm === "intl"){ market = qm; localStorage.setItem("swig-market", qm); }
+  /* La redirection de swigcups.co.za peut ajouter le chemin demandé après « ?m=za » (ex. ?m=za/contact) : on lit seulement le début, puis on nettoie l'adresse. */
+  const sp = new URLSearchParams(location.search), raw = sp.get("m"), qm = raw ? (/^za/i.test(raw) ? "za" : (/^intl/i.test(raw) ? "intl" : null)) : null;
+  if(qm){
+    market = qm; localStorage.setItem("swig-market", qm);
+    try{ sp.delete("m"); const rest = sp.toString(); history.replaceState(null, "", location.pathname + (rest ? "?" + rest : "") + location.hash); }catch(e){}
+  }
   else if(localStorage.getItem("swig-market") === "za") market = "za";
 }catch(e){}
 if(/(^|\.)swigcups\.co\.za$/i.test(location.hostname)) market = "za";
