@@ -173,6 +173,29 @@ header{position:sticky;top:0;z-index:50;background:rgba(30,20,11,.94);backdrop-f
 .how-video-cap{margin-top:12px;font-weight:700;color:var(--muted)}
 .cl-guide{display:inline-block;margin-top:6px;font-size:.82rem;font-weight:700;color:var(--amber);text-decoration:underline;text-underline-offset:3px}
 .cl-guide:hover,.cl-guide:focus-visible{text-decoration-thickness:2px}
+/* v51 : FAQ */
+.faq-list{margin-top:32px;display:grid;gap:12px;max-width:880px}
+.faq-item{background:var(--white);border-radius:var(--radius);box-shadow:0 4px 18px rgba(30,20,11,.06)}
+.faq-item summary{cursor:pointer;list-style:none;padding:18px 56px 18px 22px;font-weight:800;color:var(--ink);position:relative;line-height:1.35}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:1.6rem;font-weight:400;color:var(--amber2)}
+.faq-item[open] summary::after{content:"\2013"}
+.faq-item .faq-a{padding:0 22px 20px;color:var(--muted);font-size:.95rem;line-height:1.65}
+.faq-item summary:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:var(--radius)}
+.faq-more{margin-top:26px;font-weight:700}
+.faq-strip{padding:40px 0}
+.faq-master{background:var(--white);border-radius:var(--radius);box-shadow:0 4px 18px rgba(30,20,11,.06)}
+.faq-master>summary{cursor:pointer;list-style:none;padding:20px 64px 20px 24px;font-weight:800;color:var(--ink);position:relative;line-height:1.4}
+.faq-master>summary::-webkit-details-marker{display:none}
+.faq-master>summary::after{content:"+";position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:1.8rem;font-weight:400;color:var(--amber2)}
+.faq-master[open]>summary::after{content:"\2013"}
+.faq-master>summary:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:var(--radius)}
+.faq-master .faq-body{padding:0 24px 26px}
+.faq-master .faq-body .lede{margin-top:0}
+.faq-master .faq-list{max-width:none}
+.faq-master .faq-item{background:var(--sand);box-shadow:none}
+.faq-more .cl-guide{color:var(--amber2)}
+.faq-cta{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 .send-note{margin-top:14px;font-size:.85rem;line-height:1.5;color:#D8C7AE;max-width:560px}
 .q-thanks .btn-wa{margin-top:12px;display:inline-block}
 .step .ico{font-size:1.9rem;display:block;margin-bottom:14px}
@@ -717,7 +740,7 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
     <span class="eyebrow" data-i18n="q_eyebrow"></span>
     <h2 class="section-title" data-i18n="q_title"></h2>
     <p class="lede" data-i18n="q_lede"></p>
-    <div class="q-thanks" id="q-thanks" hidden><b data-i18n="q_thx_t"></b><span data-i18n="q_thx_p"></span> <a class="btn btn-wa" id="thx-wa" hidden target="_blank" rel="noopener" data-i18n="q_thx_wa"></a></div>
+    <div class="q-thanks" id="q-thanks" hidden><b data-i18n="q_thx_t"></b><span data-i18n="q_thx_p"></span> <a class="btn btn-wa" id="thx-wa" hidden target="_blank" rel="noopener" data-i18n="q_thx_wa"></a> <a class="btn btn-wa" id="thx-wa2" hidden target="_blank" rel="noopener" data-i18n="q_thx_wa2"></a></div>
     <div class="quote-grid">
       <form id="quote-form" action="https://formsubmit.co/sebastien@swigcups.co.za" method="POST">
         <input type="hidden" name="_subject" value="Devis swigcups.africa">
@@ -847,12 +870,25 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
           <li data-i18n="qa2"></li>
           <li data-i18n="qa3"></li>
         </ul>
-        <div class="ask-box"><b data-i18n="ask_t"></b><div class="ask-btns"><a class="btn btn-wa" id="ask-wa" href="https://wa.me/27609262367" target="_blank" rel="noopener" data-i18n="ask_wa"></a><a class="btn ask-mail" id="ask-mail" href="mailto:info@swigcups.co.za?cc=admin@swigcups.co.za" data-i18n="ask_mail"></a></div></div>
+        <div class="ask-box"><b data-i18n="ask_t"></b><div class="ask-btns"><a class="btn btn-wa" id="ask-wa" href="https://wa.me/27766236758" target="_blank" rel="noopener" data-i18n="ask_wa"></a><a class="btn btn-wa" id="ask-wa2" href="https://wa.me/27609262367" target="_blank" rel="noopener" data-i18n="ask_wa2"></a><a class="btn ask-mail" id="ask-mail" href="mailto:info@swigcups.co.za?cc=admin@swigcups.co.za" data-i18n="ask_mail"></a></div></div>
       </div>
     </div>
   </div>
 </section>
 
+<section id="faq" class="faq-strip">
+  <div class="container">
+    <details class="faq-master" id="faq-master">
+      <summary><span data-i18n="faq_bar"></span></summary>
+      <div class="faq-body">
+        <p class="lede" data-i18n="faq_lede"></p>
+        <div class="faq-list" id="faq-list"></div>
+        <p class="faq-more"><a class="cl-guide" href="Swig-Printing-Guide.pdf" target="_blank" rel="noopener" id="faq-guide"></a> &nbsp; <a href="#quote" class="faq-cta" data-i18n="faq_cta"></a></p>
+        <script type="application/ld+json" id="faq-ld"></script>
+      </div>
+    </details>
+  </div>
+</section>
 <footer>
   <div class="container footer-grid">
     <div class="footer-brand">
@@ -862,7 +898,7 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
     
   </div>
 </footer>
-<a class="wa-float" id="wa-float" href="https://wa.me/27609262367" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
+
 
 
 <script>
@@ -884,7 +920,23 @@ fr: {
   map_lede:"Basés en Afrique du Sud, nous livrons et opérons dans toute l'Afrique australe, l'Afrique de l'Est et l'océan Indien.",
   cc_cta:"Demander un devis",
   how_eyebrow:"Le système de consigne",
-  how_title:"Comment ça marche", how_video:"Voir comment ça marche en vidéo",
+  how_title:"Comment ça marche", nav_faq:"FAQ", faq_bar:"FAQ — Questions fréquentes : minimums, délais, paiement, fichiers…", faq_eyebrow:"Questions fréquentes", faq_title:"Tout ce qu'il faut savoir avant de commander", faq_lede:"Minimums, délais, fichiers, paiement : les réponses aux questions que l'on nous pose le plus souvent.", faq_guide:"📄 Guide des techniques d'impression (PDF)", faq_cta:"Demander un devis →", faq:[
+["Quelles tailles et quelles couleurs de gobelets proposez-vous ?","Trois tailles : 250 ml, 330 ml et 500 ml, en polypropylène alimentaire sans BPA. Le gobelet givré est la couleur standard ; d'autres couleurs sont disponibles (noir, rouge, rose, blanc, violet, bleu, jaune, vert, orange)."],
+["Quelle est la quantité minimum de commande ?","Sérigraphie : 200 gobelets en 1 ou 2 couleurs, 500 gobelets en 3 ou 4 couleurs. Transfert DTF UV : 50 gobelets. Étiquette Full Colour : 8 000 gobelets. Le minimum s'applique au total de la commande pour une même technique, toutes tailles confondues."],
+["Quels sont les délais de production ?","À partir de la réception de l'acompte et du BAT signé : 2 semaines pour une impression 1 couleur, 3 semaines en multicouleur, 10 jours pour le DTF UV et 4 semaines minimum pour l'étiquette Full Colour. Ces délais couvrent la production, hors livraison. Un délai plus court peut être étudié sur demande (supplément possible de 20 %)."],
+["Comment se passe une commande, et comment payer ?","Vous recevez un devis détaillé, puis un BAT (épreuve d'impression) à valider. La commande est confirmée à réception de l'acompte de 50 % et du BAT signé ; le solde de 50 % est à régler avant l'enlèvement ou l'expédition. Le délai de production ne démarre qu'à ce moment."],
+["Quels fichiers dois-je fournir pour mon logo ?","Idéalement des fichiers vectoriels : AI, EPS, PDF haute résolution ou SVG. L'adaptation de votre logo, la création des positifs et la préparation des écrans sont comprises dans le prix. La recréation d'un visuel de mauvaise qualité (basse résolution, non vectoriel, incomplet) est chiffrée à part."],
+["Pouvez-vous respecter mes couleurs Pantone ?","Si vous nous donnez des références Pantone, nous les utilisons. Sans références, nous faisons de notre mieux pour approcher la couleur souhaitée, mais aucune réclamation sur la teinte finale n'est recevable. En sérigraphie multicouleur, un léger décalage de 1 à 2 mm entre les couleurs est inhérent au procédé."],
+["Puis-je modifier mon visuel après avoir signé le BAT ?","Une fois le BAT signé, le visuel, les couleurs, la quantité et la technique sont verrouillés. Toute modification est traitée comme une nouvelle commande, facturée au coût réel (nouveaux positifs, nouveaux écrans, réglages) avec un nouveau délai. Relisez donc attentivement le BAT avant de le signer."],
+["En quelle monnaie sont établis les devis ?","En rands sud-africains (ZAR), hors TVA le cas échéant et hors livraison. Pour l'export, vous pouvez demander votre devis en USD ou en EUR."],
+["Où et comment récupère-t-on la commande ?","La collecte se fait à notre usine d'Ormonde, à Johannesburg, sur rendez-vous. Nous pouvons aussi livrer partout en Afrique avec nos partenaires logistiques : la livraison est chiffrée séparément selon la destination."],
+["Dans quels pays livrez-vous ?","Nous servons 11 pays : Afrique du Sud, Eswatini, Zimbabwe, Mozambique, Botswana, Zambie, Kenya, Tanzanie, Lesotho, Maurice et La Réunion. Pour toute autre destination en Afrique, contactez-nous."],
+["Les gobelets sont-ils vraiment réutilisables et lavables ?","Oui : ils sont conçus pour au moins 100 lavages en lave-vaisselle domestique ou industriel, en usage normal. Ils supportent le chaud et le froid et sont 100 % recyclables en fin de vie. Le lavage et le stockage sont assurés par l'organisateur ou son prestataire."],
+["Vendez-vous des gobelets non imprimés ?","La vente de gobelets non imprimés n'est plus acceptée, sauf accord écrit préalable."],
+["La quantité livrée sera-t-elle exactement celle commandée ?","Comme partout dans l'impression, la quantité livrée peut varier de ±5 %, et la facture est ajustée à la quantité réellement livrée. Si un nombre exact est essentiel pour vous, indiquez-le dès le devis."],
+["Que faire si je constate un problème à la réception ?","Vérifiez la marchandise à la réception ou à l'enlèvement. Toute réclamation doit nous parvenir par écrit sous 7 jours, avec des photos. Aucune réclamation n'est recevable si le BAT n'a pas été signé."],
+["Puis-je annuler ma commande, ou faire reprendre mes gobelets en surplus ?","Après validation du BAT ou lancement de la production, l'acompte reste acquis et les frais engagés peuvent être facturés. Sur accord préalable, nous pouvons aussi reprendre des gobelets non utilisés, dans leurs cartons d'origine fermés, pour les réimprimer à vos futurs visuels."]
+], how_video:"Voir comment ça marche en vidéo",
   how_lede:"Un système simple, éprouvé sur des centaines d'événements, qui transforme chaque festivalier en acteur du zéro déchet.",
   how1_t:"Consigne à la première boisson", how1_p:"Le client paie une petite consigne (équivalent ~1 USD, adaptée à chaque pays) avec sa première boisson.",
   how2_t:"Réutilisation toute la journée", how2_p:"Le même gobelet est échangé propre à chaque nouvelle boisson, du premier au dernier verre.",
@@ -956,7 +1008,7 @@ fr: {
   q_city:"Ville", q_city_ph:"ex. Cape Town",
   q_deadline:"Date souhaitée (livraison ou collecte)", q_budget:"Budget estimé",
   q_msg:"Message / détails", q_msg_ph:"Dites-nous en plus sur votre projet, vos contraintes, vos idées…",
-  q_send:"Envoyer ma demande", q_guide:"Guide des techniques d'impression (PDF)", q_send_note:"Votre demande part par email et ouvre WhatsApp avec un message pré-rempli : appuyez sur « Envoyer » dans WhatsApp pour que nous la recevions aussi là-bas.", q_thx_wa:"Ouvrir WhatsApp (message pré-rempli)", q_wa:"Envoyer sur WhatsApp",
+  q_send:"Envoyer ma demande", q_guide:"Guide des techniques d'impression (PDF)", q_send_note:"Votre demande part par email et ouvre WhatsApp avec un message pré-rempli : appuyez sur « Envoyer » dans WhatsApp pour que nous la recevions aussi là-bas.", q_thx_wa:"Envoyer à Fred sur WhatsApp", q_thx_wa2:"Envoyer aussi à Sébastien sur WhatsApp", q_wa:"Envoyer sur WhatsApp",
   q_types:["Festival de musique","Événement sportif","Événement corporate","École / université","Brasserie / marque","Autre"],
   q_prints:["Je ne sais pas encore","Sérigraphie (min. 200)","DTF UV (min. 50)","Étiquette Full Colour (min. 8 000)"],
   q_colors_opt:["Je ne sais pas encore","1 couleur","2 couleurs","3 couleurs","4 couleurs","Couleurs illimitées / photo"],
@@ -971,7 +1023,7 @@ fr: {
   f_tag:"Gobelets réutilisables depuis 2014",
   f_za:"Site Afrique du Sud & corporate :",
   geo_text:"Vous vous connectez depuis l'Afrique du Sud ? Retrouvez notre offre locale et corporate sur swigcups.co.za",
-  geo_go:"Aller sur swigcups.co.za", q_mode:"Collecte ou livraison ?", q_mode_collect:"Collecte à notre usine", q_mode_deliver:"Livraison", q_collect_info:"📍 Collecte à notre usine : Ormonde, Johannesburg. Nous vous confirmons le créneau de retrait.", q_address:"Adresse de livraison", q_dcountry:"Pays de livraison", q_address_ph:"Rue, numéro, bâtiment", q_province:"Province / région", q_province_ph:"ex. Gauteng",  q_cupcol:"Couleur des gobelets", q_cupcols:["Givré (standard)", "Noir", "Rouge", "Rose", "Blanc", "Violet", "Bleu", "Jaune", "Vert", "Orange", "Bleu foncé"],  prov_wc:"Cap-Occidental", prov_ec:"Cap-Oriental", prov_nc:"Cap-du-Nord", prov_fs:"État-Libre", prov_kzn:"KwaZulu-Natal", prov_nw:"Nord-Ouest", prov_gp:"Gauteng", prov_mp:"Mpumalanga", prov_lp:"Limpopo", za_factory:"notre usine", za_legend:"9 provinces sur 9 · 100 % du territoire desservi",  ask_t:"Une question ?", ask_wa:"💬 WhatsApp", ask_mail:"✉️ Email", ask_wa_msg:"Bonjour Swig Cups, j'ai une question : ", ask_mail_subj:"Question — Swig Cups",  hero_benefits:"Bien plus qu'un simple gobelet : c'est un support de communication visuelle qui met votre marque en avant à chaque service, un cadeau original que vos invités gardent et réutilisent longtemps après l'événement, un geste éco-responsable concret qui valorise votre image auprès de vos clients et partenaires — et un choix économique : réutilisé encore et encore, il réduit vos achats de jetables, vos déchets et vos frais de nettoyage.", perk1:"PP alimentaire, sans BPA", perk2:"Lave-vaisselle", perk3:"100 lavages", perk4:"Chaud & froid", perk5:"Incassable", perk6:"Empilable", perk7:"100 % recyclable", perk8:"Fabriqué en Afrique du Sud",  q_thx_t:"✅ Merci, votre demande est bien partie !", q_thx_p:"Nous revenons vers vous sous 24h avec un devis clair. Si WhatsApp s'est ouvert, appuyez sur « Envoyer » pour que nous recevions aussi votre demande par ce canal.", wa_float_msg:"Bonjour Swig Cups ! J'aimerais un devis pour des gobelets réutilisables.", 
+  geo_go:"Aller sur swigcups.co.za", q_mode:"Collecte ou livraison ?", q_mode_collect:"Collecte à notre usine", q_mode_deliver:"Livraison", q_collect_info:"📍 Collecte à notre usine : Ormonde, Johannesburg. Nous vous confirmons le créneau de retrait.", q_address:"Adresse de livraison", q_dcountry:"Pays de livraison", q_address_ph:"Rue, numéro, bâtiment", q_province:"Province / région", q_province_ph:"ex. Gauteng",  q_cupcol:"Couleur des gobelets", q_cupcols:["Givré (standard)", "Noir", "Rouge", "Rose", "Blanc", "Violet", "Bleu", "Jaune", "Vert", "Orange", "Bleu foncé"],  prov_wc:"Cap-Occidental", prov_ec:"Cap-Oriental", prov_nc:"Cap-du-Nord", prov_fs:"État-Libre", prov_kzn:"KwaZulu-Natal", prov_nw:"Nord-Ouest", prov_gp:"Gauteng", prov_mp:"Mpumalanga", prov_lp:"Limpopo", za_factory:"notre usine", za_legend:"9 provinces sur 9 · 100 % du territoire desservi",  ask_t:"Une question ?", ask_wa:"💬 WhatsApp Fred", ask_wa2:"💬 WhatsApp Sébastien", ask_mail:"✉️ Email", ask_wa_msg:"Bonjour Swig Cups, j'ai une question : ", ask_mail_subj:"Question — Swig Cups",  hero_benefits:"Bien plus qu'un simple gobelet : c'est un support de communication visuelle qui met votre marque en avant à chaque service, un cadeau original que vos invités gardent et réutilisent longtemps après l'événement, un geste éco-responsable concret qui valorise votre image auprès de vos clients et partenaires — et un choix économique : réutilisé encore et encore, il réduit vos achats de jetables, vos déchets et vos frais de nettoyage.", perk1:"PP alimentaire, sans BPA", perk2:"Lave-vaisselle", perk3:"100 lavages", perk4:"Chaud & froid", perk5:"Incassable", perk6:"Empilable", perk7:"100 % recyclable", perk8:"Fabriqué en Afrique du Sud",  q_thx_t:"✅ Merci, votre demande est bien partie !", q_thx_p:"Nous revenons vers vous sous 24h avec un devis clair. Si WhatsApp s'est ouvert, appuyez sur « Envoyer » pour que nous recevions aussi votre demande par ce canal.", wa_float_msg:"Bonjour Swig Cups ! J'ai une question : ", 
   mkt_intl:'🌍 <span class="mkt-txt">Afrique</span>', mkt_za:'🇿🇦 <span class="mkt-txt">Afrique du Sud</span>',
   countries:{
     za:{name:"Afrique du Sud",tag:"Notre base",desc:"Le cœur de Swig Cups depuis 2014 : production et logistique. Nous y servons les plus grands festivals et marques du pays — Amstel, Savannah, Splashy Fen, Kunye et bien d'autres."},
@@ -1001,7 +1053,23 @@ en: {
   map_lede:"Based in South Africa, we deliver and operate across southern Africa, East Africa and the Indian Ocean.",
   cc_cta:"Request a quote",
   how_eyebrow:"The deposit system",
-  how_title:"How it works", how_video:"Watch how it works",
+  how_title:"How it works", nav_faq:"FAQ", faq_bar:"FAQ — Frequently asked questions: minimums, lead times, payment, files…", faq_eyebrow:"Frequently asked questions", faq_title:"Everything to know before you order", faq_lede:"Minimums, lead times, files, payment: answers to the questions we get asked most often.", faq_guide:"📄 Printing techniques guide (PDF)", faq_cta:"Request a quote →", faq:[
+["Which cup sizes and colours do you offer?","Three sizes: 250 ml, 330 ml and 500 ml, made of food-grade, BPA-free polypropylene. Frosted is the standard colour; other colours are available (black, red, pink, white, purple, blue, yellow, green, orange)."],
+["What is the minimum order quantity?","Screen printing: 200 cups for 1 or 2 colours, 500 cups for 3 or 4 colours. DTF UV transfer: 50 cups. Full Colour labelling: 8,000 cups. The minimum applies to the total order for a given technique, all sizes combined."],
+["What are the production lead times?","Counted from receipt of the deposit and the signed print proof: 2 weeks for 1-colour printing, 3 weeks for multi-colour, 10 days for DTF UV and 4 weeks minimum for Full Colour labelling. Lead times cover production only, not delivery. A shorter lead time can be discussed on request (a 20% rush fee may apply)."],
+["How does ordering work, and how do I pay?","You receive a detailed quote, then a print proof to approve. Your order is confirmed on receipt of the 50% deposit and the signed proof; the remaining 50% is due before collection or dispatch. The production lead time only starts at that point."],
+["Which files should I supply for my logo?","Ideally vector files: AI, EPS, high-resolution PDF or SVG. Adapting your logo, creating the print positives and preparing the screens are included in the price. Re-drawing poor-quality artwork (low resolution, non-vector, incomplete) is quoted separately."],
+["Can you match my Pantone colours?","If you give us Pantone references, we use them. Without references we do our best to match the colour you want, but no claim on the final shade can be accepted. In multi-colour screen printing, a small 1–2 mm registration gap between colours is inherent to the process."],
+["Can I change my artwork after signing the print proof?","Once the proof is signed, artwork, colours, quantity and technique are locked. Any change is treated as a new job and charged at cost (new positives, new screens, set-up) with a revised lead time. Please check the proof carefully before signing."],
+["In which currency are quotes issued?","In South African rand (ZAR), excluding VAT where applicable and excluding delivery. For export, you can ask for your quote in USD or EUR."],
+["Where and how do I get my order?","Collection is at our factory in Ormonde, Johannesburg, by appointment. We can also deliver anywhere in Africa with our logistics partners: delivery is quoted separately depending on the destination."],
+["Which countries do you deliver to?","We serve 11 countries: South Africa, Eswatini, Zimbabwe, Mozambique, Botswana, Zambia, Kenya, Tanzania, Lesotho, Mauritius and Réunion. For any other destination in Africa, please contact us."],
+["Are the cups really reusable and washable?","Yes: they are designed for at least 100 washes in a domestic or industrial dishwasher under normal use. They handle hot and cold drinks and are 100% recyclable at end of life. Washing and storage are handled by the event organiser or their service provider."],
+["Do you sell unprinted cups?","The sale of unprinted cups is no longer accepted, unless agreed in writing in advance."],
+["Will the delivered quantity be exactly what I ordered?","As is standard in printing, the delivered quantity can vary by ±5%, and the invoice is adjusted to the quantity actually delivered. If an exact number is essential to you, please tell us at the quoting stage."],
+["What if there is a problem when I receive my order?","Please check the goods on receipt or collection. Any complaint must reach us in writing within 7 days, with photos. No complaint can be accepted if the print proof was not signed."],
+["Can I cancel an order, or have my surplus cups taken back?","After the proof is approved or production has started, the deposit is retained and costs incurred may be invoiced. By prior arrangement we can also take back unused cups, in their original sealed boxes, to reprint them for your future designs."]
+], how_video:"Watch how it works",
   how_lede:"A simple system, proven across hundreds of events, that turns every festival-goer into a zero-waste player.",
   how1_t:"Deposit with the first drink", how1_p:"The customer pays a small deposit (roughly 1 USD, adapted to each country) with their first drink.",
   how2_t:"Reused all day long", how2_p:"The same cup is swapped for a clean one with every new drink, from the first to the last.",
@@ -1073,7 +1141,7 @@ en: {
   q_city:"City", q_city_ph:"e.g. Cape Town",
   q_deadline:"Needed by (delivery or collection)", q_budget:"Estimated budget",
   q_msg:"Message / details", q_msg_ph:"Tell us more about your project, constraints, ideas…",
-  q_send:"Send my request", q_guide:"Printing techniques guide (PDF)", q_send_note:"Your request is sent by email and opens WhatsApp with a pre-filled message: press « Send » in WhatsApp so we receive it there too.", q_thx_wa:"Open WhatsApp (pre-filled message)", q_wa:"Send on WhatsApp",
+  q_send:"Send my request", q_guide:"Printing techniques guide (PDF)", q_send_note:"Your request is sent by email and opens WhatsApp with a pre-filled message: press « Send » in WhatsApp so we receive it there too.", q_thx_wa:"Send to Fred on WhatsApp", q_thx_wa2:"Also send to Sébastien on WhatsApp", q_wa:"Send on WhatsApp",
   q_types:["Music festival","Sports event","Corporate event","School / university","Brewery / brand","Other"],
   q_prints:["Not sure yet","Screen Printing (min. 200)","DTF UV (min. 50)","Full Colour Labelling (min. 8,000)"],
   q_colors_opt:["Not sure yet","1 colour","2 colours","3 colours","4 colours","Unlimited / photo"],
@@ -1088,7 +1156,7 @@ en: {
   f_tag:"Reusable cups since 2014",
   f_za:"South Africa & corporate site:",
   geo_text:"Visiting from South Africa? Find our local and corporate offer at swigcups.co.za",
-  geo_go:"Go to swigcups.co.za", q_mode:"Collection or delivery?", q_mode_collect:"Collection at our factory", q_mode_deliver:"Delivery", q_collect_info:"📍 Collection from our factory: Ormonde, Johannesburg. We'll confirm your pick-up slot.", q_address:"Delivery address", q_dcountry:"Delivery country", q_address_ph:"Street, number, building", q_province:"Province / region", q_province_ph:"e.g. Gauteng",  q_cupcol:"Cup colour", q_cupcols:["Frosted (standard)", "Black", "Red", "Pink", "White", "Purple", "Blue", "Yellow", "Green", "Orange", "Dark Blue"],  prov_wc:"Western Cape", prov_ec:"Eastern Cape", prov_nc:"Northern Cape", prov_fs:"Free State", prov_kzn:"KwaZulu-Natal", prov_nw:"North West", prov_gp:"Gauteng", prov_mp:"Mpumalanga", prov_lp:"Limpopo", za_factory:"our factory", za_legend:"9 of 9 provinces · 100% of the country covered",  ask_t:"A question?", ask_wa:"💬 WhatsApp", ask_mail:"✉️ Email", ask_wa_msg:"Hi Swig Cups, I have a question: ", ask_mail_subj:"Question — Swig Cups",  hero_benefits:"More than just a cup: it's a visual communication tool that puts your brand in every hand at your event, a memorable gift your guests keep and reuse long after the party's over, a genuine eco-friendly statement that strengthens your image with clients and partners — and a cost-effective choice: used again and again, it cuts your disposable purchases, your waste and your clean-up costs.", perk1:"Food-grade PP, BPA-free", perk2:"Dishwasher-safe", perk3:"100 washes", perk4:"Hot & cold drinks", perk5:"Shatterproof", perk6:"Stackable", perk7:"Fully recyclable", perk8:"Made in South Africa",  q_thx_t:"✅ Thank you, your request is on its way!", q_thx_p:"We'll get back to you within 24h with a clear quote. If WhatsApp opened, press « Send » so we also receive your request there.", wa_float_msg:"Hi Swig Cups! I'd like a quote for reusable cups.", 
+  geo_go:"Go to swigcups.co.za", q_mode:"Collection or delivery?", q_mode_collect:"Collection at our factory", q_mode_deliver:"Delivery", q_collect_info:"📍 Collection from our factory: Ormonde, Johannesburg. We'll confirm your pick-up slot.", q_address:"Delivery address", q_dcountry:"Delivery country", q_address_ph:"Street, number, building", q_province:"Province / region", q_province_ph:"e.g. Gauteng",  q_cupcol:"Cup colour", q_cupcols:["Frosted (standard)", "Black", "Red", "Pink", "White", "Purple", "Blue", "Yellow", "Green", "Orange", "Dark Blue"],  prov_wc:"Western Cape", prov_ec:"Eastern Cape", prov_nc:"Northern Cape", prov_fs:"Free State", prov_kzn:"KwaZulu-Natal", prov_nw:"North West", prov_gp:"Gauteng", prov_mp:"Mpumalanga", prov_lp:"Limpopo", za_factory:"our factory", za_legend:"9 of 9 provinces · 100% of the country covered",  ask_t:"A question?", ask_wa:"💬 WhatsApp Fred", ask_wa2:"💬 WhatsApp Sébastien", ask_mail:"✉️ Email", ask_wa_msg:"Hi Swig Cups, I have a question: ", ask_mail_subj:"Question — Swig Cups",  hero_benefits:"More than just a cup: it's a visual communication tool that puts your brand in every hand at your event, a memorable gift your guests keep and reuse long after the party's over, a genuine eco-friendly statement that strengthens your image with clients and partners — and a cost-effective choice: used again and again, it cuts your disposable purchases, your waste and your clean-up costs.", perk1:"Food-grade PP, BPA-free", perk2:"Dishwasher-safe", perk3:"100 washes", perk4:"Hot & cold drinks", perk5:"Shatterproof", perk6:"Stackable", perk7:"Fully recyclable", perk8:"Made in South Africa",  q_thx_t:"✅ Thank you, your request is on its way!", q_thx_p:"We'll get back to you within 24h with a clear quote. If WhatsApp opened, press « Send » so we also receive your request there.", wa_float_msg:"Hi Swig Cups! I have a question: ", 
   mkt_intl:'🌍 <span class="mkt-txt">Africa</span>', mkt_za:'🇿🇦 <span class="mkt-txt">South Africa</span>',
   countries:{
     za:{name:"South Africa",tag:"Home base",desc:"The heart of Swig Cups since 2014: production and logistics. We serve the country's biggest festivals and brands — Amstel, Savannah, Splashy Fen, Kunye and many more."},
@@ -1130,7 +1198,8 @@ const ZA = {
 const CLIENTS = ["Amstel","Heineken","Savannah","MTN Bushfire","Splashy Fen","Coke Studio","Windhoek","Johnnie Walker","Kunye"];
 
 /* Numéro WhatsApp (format international sans +) — à confirmer */
-const WHATSAPP = "27609262367";
+const WA_FRED = "27766236758", WA_SEB = "27609262367";
+const WHATSAPP = WA_FRED; /* numéro « devant » = Fred */
 
 /* Marqueurs de la carte : position en % du conteneur */
 const MARKERS = [
@@ -1250,7 +1319,8 @@ function setLang(l){
   const wf = document.getElementById("wa-float");
   if(wf) wf.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(D.wa_float_msg);
   const aw = document.getElementById("ask-wa"), am = document.getElementById("ask-mail");
-  if(aw) aw.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(D.ask_wa_msg);
+  if(aw) aw.href = "https://wa.me/" + WA_FRED + "?text=" + encodeURIComponent(D.ask_wa_msg);
+  const aw2 = document.getElementById("ask-wa2"); if(aw2) aw2.href = "https://wa.me/" + WA_SEB + "?text=" + encodeURIComponent(D.ask_wa_msg);
   if(am) am.href = "mailto:info@swigcups.co.za?cc=admin@swigcups.co.za&subject=" + encodeURIComponent(D.ask_mail_subj);
   showCountry(currentCountry);
 }
@@ -1319,7 +1389,7 @@ function buildMarquee(){
   track.innerHTML = list.map(c=>`<span>${c}</span>`).join("");
 }
 
-function waUrl(){
+function waUrl(num){
   const g = id => { const el = document.getElementById(id); return el ? el.value : ""; };
   // tailles cochées
   const sizes = [];
@@ -1360,7 +1430,7 @@ function waUrl(){
         : (document.querySelector('input[data-mode]:checked') ? "Collection — Ormonde, Johannesburg" : ""))
     + line(L.deadline, g("f-deadline"))
     + line(L.msg, g("f-msg"));
-  return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  return `https://wa.me/${num || WA_FRED}?text=${encodeURIComponent(msg)}`;
 }
 function sendWhatsApp(){
   window.open(waUrl(), "_blank");
@@ -1525,8 +1595,9 @@ updateMoq(false);/* ===== v44 : « même adresse » entre coordonnées et livrai
     e.preventDefault();
     /* WhatsApp s'ouvre en même temps que l'envoi par email (message pré-rempli) ; si le navigateur bloque la fenêtre, un bouton de secours s'affiche sur la page de remerciement */
     let waTab = null;
-    try{ waTab = window.open(waUrl(), '_blank'); }catch(err){}
-    try{ if(waTab) sessionStorage.removeItem('swig-wa-pending'); else sessionStorage.setItem('swig-wa-pending', waUrl()); }catch(err){}
+    try{ waTab = window.open(waUrl(WA_FRED), '_blank'); }catch(err){}
+    try{ sessionStorage.setItem('swig-wa-second', waUrl(WA_SEB)); }catch(err){}
+    try{ if(waTab) sessionStorage.removeItem('swig-wa-pending'); else sessionStorage.setItem('swig-wa-pending', waUrl(WA_FRED)); }catch(err){}
     const v = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
     const txt = id => { const el = document.getElementById(id); return el && el.selectedIndex >= 0 ? el.options[el.selectedIndex].text : ''; };
     const D = T[lang];
@@ -1570,12 +1641,25 @@ document.querySelectorAll(".nav-links a").forEach(a => a.addEventListener("click
 try{
   if(new URLSearchParams(location.search).has("merci")){
     document.getElementById("q-thanks").hidden = false;
-    try{ const pend = sessionStorage.getItem("swig-wa-pending"); if(pend){ const a = document.getElementById("thx-wa"); a.href = pend; a.hidden = false; sessionStorage.removeItem("swig-wa-pending"); } }catch(e){}
+    try{ const pend = sessionStorage.getItem("swig-wa-pending"); if(pend){ const a = document.getElementById("thx-wa"); a.href = pend; a.hidden = false; sessionStorage.removeItem("swig-wa-pending"); } const sec = sessionStorage.getItem("swig-wa-second"); if(sec){ const b = document.getElementById("thx-wa2"); b.href = sec; b.hidden = false; sessionStorage.removeItem("swig-wa-second"); } }catch(e){}
     history.replaceState(null, "", location.pathname + "#quote");
     setTimeout(() => document.getElementById("quote").scrollIntoView(), 300);
   }
 }catch(e){}
 
+/* ---------- FAQ : rendu dans la langue courante + données structurées FAQPage ---------- */
+function buildFaq(){
+  const D = T[lang], box = document.getElementById("faq-list"); if(!box || !D || !D.faq) return;
+  const wasOpen = [...box.querySelectorAll("details")].map(x => x.open);
+  box.innerHTML = D.faq.map((f, i) => "<details class=\"faq-item\"" + (wasOpen[i] ? " open" : "") + "><summary>" + f[0] + "</summary><div class=\"faq-a\">" + f[1] + "</div></details>").join("");
+  const g = document.getElementById("faq-guide"); if(g) g.textContent = D.faq_guide;
+  const ld = document.getElementById("faq-ld");
+  if(ld) ld.textContent = JSON.stringify({"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": lang,
+    "mainEntity": D.faq.map(f => ({"@type": "Question", "name": f[0], "acceptedAnswer": {"@type": "Answer", "text": f[1]}}))});
+}
+const _setLangFaq = window.setLang;
+window.setLang = function(l){ _setLangFaq(l); buildFaq(); };
+buildFaq();
 /* ---------- Vidéo « Comment ça marche » : le lecteur YouTube ne se charge qu'au clic ---------- */
 (function(){
   const b = document.getElementById("yt-how"); if(!b) return;
