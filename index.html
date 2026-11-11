@@ -171,6 +171,8 @@ header{position:sticky;top:0;z-index:50;background:rgba(30,20,11,.94);backdrop-f
 .yt-facade .yt-play::before{content:"";margin-left:5px;border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent var(--ink)}
 .how-video iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:var(--radius);display:block}
 .how-video-cap{margin-top:12px;font-weight:700;color:var(--muted)}
+.cl-guide{display:inline-block;margin-top:6px;font-size:.82rem;font-weight:700;color:var(--amber);text-decoration:underline;text-underline-offset:3px}
+.cl-guide:hover,.cl-guide:focus-visible{text-decoration-thickness:2px}
 .send-note{margin-top:14px;font-size:.85rem;line-height:1.5;color:#D8C7AE;max-width:560px}
 .q-thanks .btn-wa{margin-top:12px;display:inline-block}
 .step .ico{font-size:1.9rem;display:block;margin-bottom:14px}
@@ -954,7 +956,7 @@ fr: {
   q_city:"Ville", q_city_ph:"ex. Cape Town",
   q_deadline:"Date souhaitée (livraison ou collecte)", q_budget:"Budget estimé",
   q_msg:"Message / détails", q_msg_ph:"Dites-nous en plus sur votre projet, vos contraintes, vos idées…",
-  q_send:"Envoyer ma demande", q_send_note:"Votre demande part par email et ouvre WhatsApp avec un message pré-rempli : appuyez sur « Envoyer » dans WhatsApp pour que nous la recevions aussi là-bas.", q_thx_wa:"Ouvrir WhatsApp (message pré-rempli)", q_wa:"Envoyer sur WhatsApp",
+  q_send:"Envoyer ma demande", q_guide:"Guide des techniques d'impression (PDF)", q_send_note:"Votre demande part par email et ouvre WhatsApp avec un message pré-rempli : appuyez sur « Envoyer » dans WhatsApp pour que nous la recevions aussi là-bas.", q_thx_wa:"Ouvrir WhatsApp (message pré-rempli)", q_wa:"Envoyer sur WhatsApp",
   q_types:["Festival de musique","Événement sportif","Événement corporate","École / université","Brasserie / marque","Autre"],
   q_prints:["Je ne sais pas encore","Sérigraphie (min. 200)","DTF UV (min. 50)","Étiquette Full Colour (min. 8 000)"],
   q_colors_opt:["Je ne sais pas encore","1 couleur","2 couleurs","3 couleurs","4 couleurs","Couleurs illimitées / photo"],
@@ -1071,7 +1073,7 @@ en: {
   q_city:"City", q_city_ph:"e.g. Cape Town",
   q_deadline:"Needed by (delivery or collection)", q_budget:"Estimated budget",
   q_msg:"Message / details", q_msg_ph:"Tell us more about your project, constraints, ideas…",
-  q_send:"Send my request", q_send_note:"Your request is sent by email and opens WhatsApp with a pre-filled message: press « Send » in WhatsApp so we receive it there too.", q_thx_wa:"Open WhatsApp (pre-filled message)", q_wa:"Send on WhatsApp",
+  q_send:"Send my request", q_guide:"Printing techniques guide (PDF)", q_send_note:"Your request is sent by email and opens WhatsApp with a pre-filled message: press « Send » in WhatsApp so we receive it there too.", q_thx_wa:"Open WhatsApp (pre-filled message)", q_wa:"Send on WhatsApp",
   q_types:["Music festival","Sports event","Corporate event","School / university","Brewery / brand","Other"],
   q_prints:["Not sure yet","Screen Printing (min. 200)","DTF UV (min. 50)","Full Colour Labelling (min. 8,000)"],
   q_colors_opt:["Not sure yet","1 colour","2 colours","3 colours","4 colours","Unlimited / photo"],
@@ -1438,6 +1440,7 @@ function refillCupLines(){
     el.querySelector('.l-qty').textContent = D.q_qty;
     el.querySelector('.l-col').textContent = D.q_colors;
     el.querySelector('.l-print').textContent = D.q_print;
+    el.querySelector('.cl-guide').textContent = '📄 ' + D.q_guide;
     
     el.querySelector('.cl-qty').placeholder = D.q_qty_ph;
     el.querySelector('.cl-remove').textContent = '✕ ' + D.q_remove;
@@ -1454,7 +1457,7 @@ function addCupLine(){
     + '<div><label class="l-size"></label><select class="cl-size" required data-vals="250,330,500"></select></div>'
     + '<div><label class="l-cup"></label><select class="cl-cupcol"></select></div>'
     + '<div><label class="l-qty"></label><input type="number" class="cl-qty" min="1" required></div>'
-    + '<div><label class="l-print"></label><select class="cl-print"></select></div>'
+    + '<div><label class="l-print"></label><select class="cl-print"></select><a class="cl-guide" href="Swig-Printing-Guide.pdf" target="_blank" rel="noopener"></a></div>'
     + '<div><label class="l-col"></label><select class="cl-colors"></select></div>'
     + '</div>';
   wrap.appendChild(el);
