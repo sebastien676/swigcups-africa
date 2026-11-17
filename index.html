@@ -309,6 +309,15 @@ img.tech-photo{object-fit:cover;display:block}
 .eco-light .eco-card p{color:var(--muted)}
 
 /* ---------- Clients / gallery ---------- */
+/* v58 : bandeau défilant d'information (haute saison) */
+select option:disabled{color:#8a8176}
+.peak-bar{position:relative;z-index:60;overflow:hidden;background:var(--amber);color:var(--ink);font-weight:800;font-size:.92rem;line-height:1;border-bottom:2px solid var(--ink)}
+.peak-bar[hidden]{display:none}
+.peak-track{display:flex;width:max-content;animation:peakscroll 38s linear infinite;padding:11px 0}
+.peak-bar:hover .peak-track{animation-play-state:paused}
+.peak-track span{white-space:nowrap;padding-right:64px}
+@keyframes peakscroll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.peak-track{animation:none;width:auto;flex-wrap:wrap;justify-content:center;padding:10px 14px;text-align:center}.peak-track span{white-space:normal;padding:0}.peak-track span+span{display:none}}
 .marquee{overflow:hidden;margin-top:40px;border-top:1px solid var(--sand2);border-bottom:1px solid var(--sand2);padding:26px 0}
 .marquee-track{display:flex;gap:56px;width:max-content;animation:scroll 30s linear infinite}
 @keyframes scroll{to{transform:translateX(-50%)}}
@@ -520,6 +529,9 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
   <a class="geo-btn" href="https://swigcups.co.za" id="geo-go"></a>
   <button class="geo-close" id="geo-close" aria-label="Close"></button>
 </div>
+
+<!-- ================= BANDEAU INFO (haute saison) ================= -->
+<div class="peak-bar" id="peak-bar" role="status" hidden><div class="peak-track" id="peak-track"></div></div>
 
 <!-- ================= HEADER ================= -->
 <header>
@@ -755,7 +767,7 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
     <div class="q-thanks" id="q-thanks" hidden><b data-i18n="q_thx_t"></b><span data-i18n="q_thx_p"></span> <a class="btn btn-wa" id="thx-wa" hidden target="_blank" rel="noopener" data-i18n="q_thx_wa"></a> <a class="btn btn-wa" id="thx-wa2" hidden target="_blank" rel="noopener" data-i18n="q_thx_wa2"></a></div>
     <div class="quote-grid">
       <form id="quote-form" action="https://formsubmit.co/sebastien@swigcups.co.za" method="POST">
-        <input type="hidden" name="_subject" value="Quote request swigcups.africa">
+        <input type="hidden" name="_subject" value="Devis swigcups.africa">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_next" value="https://www.swigcups.africa/?merci=1#quote">
@@ -931,7 +943,7 @@ fr: {
   map_lede:"Basés en Afrique du Sud, nous livrons et opérons dans toute l'Afrique australe, l'Afrique de l'Est et l'océan Indien.",
   cc_cta:"Demander un devis",
   how_eyebrow:"Le système de consigne",
-  how_title:"Comment ça marche", nav_faq:"FAQ", faq_bar:"FAQ — Questions fréquentes : minimums, délais, paiement, fichiers…", faq_eyebrow:"Questions fréquentes", faq_title:"Tout ce qu'il faut savoir avant de commander", faq_lede:"Minimums, délais, fichiers, paiement : les réponses aux questions que l'on nous pose le plus souvent.", faq_guide:"📄 Guide des techniques d'impression (PDF)", faq_cta:"Demander un devis →", faq:[
+  peak_msg:"⚠️ Haute saison : nous ne pouvons pas assurer le service DTF UV, trop chronophage en ce moment ; il reprendra à partir de janvier 2027. Les commandes démarrent donc à 200 unités, en sérigraphie.", q_dtf_off:"DTF UV — disponible à partir de janvier 2027", how_title:"Comment ça marche", nav_faq:"FAQ", faq_bar:"FAQ — Questions fréquentes : minimums, délais, paiement, fichiers…", faq_eyebrow:"Questions fréquentes", faq_title:"Tout ce qu'il faut savoir avant de commander", faq_lede:"Minimums, délais, fichiers, paiement : les réponses aux questions que l'on nous pose le plus souvent.", faq_guide:"📄 Guide des techniques d'impression (PDF)", faq_cta:"Demander un devis →", faq:[
 ["Quelles tailles et quelles couleurs de gobelets proposez-vous ?","Trois tailles : 250 ml, 330 ml et 500 ml, en polypropylène alimentaire sans BPA. Le gobelet givré est la couleur standard ; d'autres couleurs sont disponibles (noir, rouge, rose, blanc, violet, bleu, jaune, vert, orange)."],
 ["Quelle est la quantité minimum de commande ?","Sérigraphie : 200 gobelets en 1 ou 2 couleurs, 500 gobelets en 3 ou 4 couleurs. Transfert DTF UV : 50 gobelets. Étiquette Full Colour : 8 000 gobelets. Le minimum s'applique au total de la commande pour une même technique, toutes tailles confondues."],
 ["Quels sont les délais de production ?","À partir de la réception de l'acompte et du BAT signé : 2 semaines pour une impression 1 couleur, 3 semaines en multicouleur, 10 jours pour le DTF UV et 4 semaines minimum pour l'étiquette Full Colour. Ces délais couvrent la production, hors livraison. Un délai plus court peut être étudié sur demande (supplément possible de 20 %)."],
@@ -1064,7 +1076,7 @@ en: {
   map_lede:"Based in South Africa, we deliver and operate across southern Africa, East Africa and the Indian Ocean.",
   cc_cta:"Request a quote",
   how_eyebrow:"The deposit system",
-  how_title:"How it works", nav_faq:"FAQ", faq_bar:"FAQ — Frequently asked questions: minimums, lead times, payment, files…", faq_eyebrow:"Frequently asked questions", faq_title:"Everything to know before you order", faq_lede:"Minimums, lead times, files, payment: answers to the questions we get asked most often.", faq_guide:"📄 Printing techniques guide (PDF)", faq_cta:"Request a quote →", faq:[
+  peak_msg:"⚠️ Peak season: we are unable to offer our DTF UV service as it is too time-consuming right now; it will resume from January 2027. Orders therefore start at 200 units, with screen printing.", q_dtf_off:"DTF UV — available from January 2027", how_title:"How it works", nav_faq:"FAQ", faq_bar:"FAQ — Frequently asked questions: minimums, lead times, payment, files…", faq_eyebrow:"Frequently asked questions", faq_title:"Everything to know before you order", faq_lede:"Minimums, lead times, files, payment: answers to the questions we get asked most often.", faq_guide:"📄 Printing techniques guide (PDF)", faq_cta:"Request a quote →", faq:[
 ["Which cup sizes and colours do you offer?","Three sizes: 250 ml, 330 ml and 500 ml, made of food-grade, BPA-free polypropylene. Frosted is the standard colour; other colours are available (black, red, pink, white, purple, blue, yellow, green, orange)."],
 ["What is the minimum order quantity?","Screen printing: 200 cups for 1 or 2 colours, 500 cups for 3 or 4 colours. DTF UV transfer: 50 cups. Full Colour labelling: 8,000 cups. The minimum applies to the total order for a given technique, all sizes combined."],
 ["What are the production lead times?","Counted from receipt of the deposit and the signed print proof: 2 weeks for 1-colour printing, 3 weeks for multi-colour, 10 days for DTF UV and 4 weeks minimum for Full Colour labelling. Lead times cover production only, not delivery. A shorter lead time can be discussed on request (a 20% rush fee may apply)."],
@@ -1478,6 +1490,9 @@ document.querySelectorAll('.chk-q input[type=checkbox]').forEach(cb => cb.addEve
 }));
 /* ===== v39 : sections « gobelet » (taille, couleur, quantité, logos, visuel) + blocage des quantités sous le minimum (MOQ) ===== */
 var MAX_LINES = 5;
+/* DTF UV désactivé jusqu'au 1er janvier 2027 (se réactive tout seul à cette date) */
+var DTF_FROM = Date.UTC(2027, 0, 1);
+function dtfBlocked(){ return Date.now() < DTF_FROM; }
 const MOQ = { screenLow: 200, screenHigh: 500, dtf: 50, label: 8000 };
 const MOQ_ERR = {
   en: "The minimum for this technique is {min} cups in total (all sizes and lines using this technique combined).",
@@ -1514,6 +1529,8 @@ function refillCupLines(){
     fillSel(el.querySelector('.cl-size'), D.q_sizes_opt, D.q_size_ph);
     fillSel(el.querySelector('.cl-cupcol'), D.q_cupcols);
     fillSel(el.querySelector('.cl-print'), D.q_prints);
+    { const ps = el.querySelector('.cl-print'), o = ps.options[2];
+      if (o && dtfBlocked()) { o.disabled = true; o.textContent = D.q_dtf_off; if (ps.selectedIndex === 2) ps.selectedIndex = 0; } }
     fillSel(el.querySelector('.cl-colors'), D.q_colors_opt);
     
     el.querySelector('.l-size').textContent = D.q_size;
@@ -1638,33 +1655,7 @@ updateMoq(false);/* ===== v44 : « même adresse » entre coordonnées et livrai
     const btn = f.querySelector('button[type=submit]'); if (btn) btn.disabled = true;
     const send = fetch(QI_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' },
                                  body: JSON.stringify(payload), keepalive: true }).catch(() => {});
-    /* v58 : l'email FormSubmit (Seb + Fred) est toujours en ANGLAIS : noms de champs et valeurs, quelle que soit la langue du visiteur */
-    const EN = T.en, selO = id => { const el = document.getElementById(id); return el && el.selectedIndex >= 0 ? el.options[el.selectedIndex] : null; };
-    const enAt = (arr, i) => (i >= 0 && arr && arr[i] !== undefined) ? arr[i] : '';
-    const cEN = s => { const x = String(s || '').trim(); if (!x) return ''; const lc = x.toLowerCase(); const hit = Object.entries(T[lang].countries).find(([id, c]) => c.name.toLowerCase() === lc); return hit ? EN.countries[hit[0]].name : x; };
-    const ctO = selO('f-country'), curEl = document.getElementById('f-currency');
-    const modeEN = dm() === 'collection' ? 'Collection - Ormonde, Johannesburg' : (dm() === 'delivery' ? 'Delivery' : '');
-    const rowsEN = [
-      ['First name', v('f-name')], ['Last name', v('f-surname')], ['Company', v('f-company')],
-      ['VAT number', v('f-vat')], ['Company registration number', v('f-reg')],
-      ['Email', v('f-email')], ['Phone / WhatsApp', v('f-phone')],
-      ['Country', (ctO && EN.countries[ctO.dataset.id]) ? EN.countries[ctO.dataset.id].name : txt('f-country')],
-      ['Currency', (curEl && !curEl.disabled) ? v('f-currency') : 'ZAR'],
-      ['Billing address', v('f-caddr')], ['Billing city', v('f-ccity')], ['Postal code', v('f-cpost')],
-      ['Event type', enAt(EN.q_types, document.getElementById('f-type').selectedIndex)],
-      ['Participants', v('f-pax')], ['Event date', v('f-date')]
-    ];
-    LD.forEach((l, i) => { const n = i + 1; rowsEN.push(['Cup ' + n + ' - Size', l.sizeLabel], ['Cup ' + n + ' - Cup colour', enAt(EN.q_cupcols, l.cupIdx)], ['Cup ' + n + ' - Quantity', l.qty], ['Cup ' + n + ' - Print technique', enAt(EN.q_prints, l.printIdx)], ['Cup ' + n + ' - Logo colours', enAt(EN.q_colors_opt, l.colourIdx)]); });
-    rowsEN.push(['Collection or delivery', modeEN], ['Delivery address', v('f-address')], ['Delivery city', v('f-city')], ['Province / region', v('f-province')], ['Delivery country', cEN(v('f-dcountry'))], ['Requested date', v('f-deadline')], ['Message', v('f-msg')], ['Website language', lang.toUpperCase()]);
-    const sendEN = () => {
-      const g = document.createElement('form'); g.method = 'POST'; g.action = f.action; g.style.display = 'none';
-      const mk = (n, val) => { const i = document.createElement('input'); i.type = 'hidden'; i.name = n; i.value = val; g.appendChild(i); };
-      ['_subject', '_captcha', '_template', '_next', '_cc'].forEach(n => { const el = f.querySelector('[name="' + n + '"]'); if (el) mk(n, el.value); });
-      mk('_honey', (f.querySelector('[name=_honey]') || {}).value || '');
-      rowsEN.forEach(([k, val]) => { if (val !== '' && val != null) mk(k, val); });
-      document.body.appendChild(g); g.submit();
-    };
-    Promise.race([send, new Promise(r => setTimeout(r, 4000))]).finally(() => { try { sendEN(); } catch (err) { f.submit(); } });
+    Promise.race([send, new Promise(r => setTimeout(r, 4000))]).finally(() => f.submit());
   });
 })();
 function toggleMenu(force){
@@ -1697,6 +1688,22 @@ function buildFaq(){
 const _setLangFaq = window.setLang;
 window.setLang = function(l){ _setLangFaq(l); buildFaq(); };
 buildFaq();
+/* ---------- Bandeau d'information « haute saison » ----------
+   Pour le retirer : mettre PEAK_SEASON à false (ou me demander de le faire). */
+const PEAK_SEASON = true;
+function buildPeak(){
+  const bar = document.getElementById("peak-bar"), tr = document.getElementById("peak-track");
+  if(!bar || !tr) return;
+  if(!PEAK_SEASON){ bar.hidden = true; return; }
+  const m = (T[lang] && T[lang].peak_msg) || "";
+  if(!m){ bar.hidden = true; return; }
+  const one = "<span>" + m + "</span>";
+  tr.innerHTML = one.repeat(6);   /* 2 moitiés identiques pour un défilement sans coupure */
+  bar.hidden = false;
+}
+const _setLangPeak = window.setLang;
+window.setLang = function(l){ _setLangPeak(l); buildPeak(); };
+buildPeak();
 /* ---------- Vidéo « Comment ça marche » : le lecteur YouTube ne se charge qu'au clic ---------- */
 (function(){
   const b = document.getElementById("yt-how"); if(!b) return;
