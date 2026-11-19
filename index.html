@@ -516,7 +516,11 @@ html.mkt-za .za-map{display:block}html.mkt-za #africa{display:none}
 .cl-remove{background:none;border:1px solid rgba(245,240,230,.3);color:var(--sand);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:.8rem}
 .cl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:4px 16px}
 .chk[hidden]{display:none!important}
-.chk.same-addr{margin:4px 0 10px;display:inline-flex;background:none;border:0;padding:6px 0}
+.chk.same-addr{margin:4px 0 6px;display:inline-flex;background:none;border:0;padding:6px 0}
+.chk.same-addr input{accent-color:var(--amber)}
+.chk.same-addr input:disabled + span{opacity:.55}
+.same-hint{margin:0 0 12px;font-size:.82rem;line-height:1.5;color:#D8C7AE}
+.same-hint[hidden]{display:none}
 .chk.add-line{margin-top:6px;display:inline-flex;background:none;border:0;padding:6px 0}
 .tech-card .tech-specs .row.moq .val small{display:block;font-size:.72rem;font-weight:600;opacity:.85;text-align:right}
 /* v43 : les 3 encarts « Minimum » ont la même hauteur et restent alignés ; bouton « pays » masqué en mode Afrique du Sud */
@@ -877,7 +881,8 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
         </div>
         <p class="mode-info" id="collect-info" hidden data-i18n="q_collect_info"></p>
         <div id="delivery-fields" hidden>
-          <label class="chk same-addr" id="same-wrap" hidden><input type="checkbox" id="same-addr"> <span data-i18n="q_same"></span></label>
+          <label class="chk same-addr" id="same-wrap"><input type="checkbox" id="same-addr" disabled> <span data-i18n="q_same"></span></label>
+          <p class="same-hint" id="same-hint" data-i18n="q_same_hint"></p>
           <label for="f-address" data-i18n="q_address"></label>
           <input id="f-address" name="Adresse de livraison" data-i18n-ph="q_address_ph">
           <div class="form-row">
@@ -1039,7 +1044,7 @@ fr: {
   q_sec_cups:"Les gobelets",
   q_sec_logistics:"Logistique",
   q_sec_message:"Votre projet",
-  q_name:"Prénom", q_surname:"Nom", q_vat:"N° de TVA", q_reg:"N° d'enregistrement de la société", q_caddr:"Adresse", q_cpost:"Code postal", q_same:"Même adresse que mes coordonnées ci-dessus", q_company:"Société / organisation",
+  q_name:"Prénom", q_surname:"Nom", q_vat:"N° de TVA", q_reg:"N° d'enregistrement de la société", q_caddr:"Adresse", q_cpost:"Code postal", q_same:"Même adresse que mes coordonnées ci-dessus", q_same_hint:"Pour gagner du temps : renseignez d'abord votre adresse dans « Vos coordonnées », plus haut, puis cochez cette case.", q_company:"Société / organisation",
   q_email:"Email", q_phone:"Téléphone / WhatsApp", q_country:"Pays",q_currency:"Devise souhaitée pour le devis", q_type:"Type d'événement",
   q_pax:"Nombre de participants", q_pax_ph:"ex. 5000", q_date:"Date de l'événement",
   q_sizes:"Taille(s) et quantité(s)",
@@ -1172,7 +1177,7 @@ en: {
   q_sec_cups:"The cups",
   q_sec_logistics:"Logistics",
   q_sec_message:"Your project",
-  q_name:"First name", q_surname:"Surname", q_vat:"VAT number", q_reg:"Company registration number", q_caddr:"Address", q_cpost:"Postal code", q_same:"Same address as my details above", q_company:"Company / organisation",
+  q_name:"First name", q_surname:"Surname", q_vat:"VAT number", q_reg:"Company registration number", q_caddr:"Address", q_cpost:"Postal code", q_same:"Same address as my details above", q_same_hint:"To save time: first fill in your address under “Your details” above, then tick this box.", q_company:"Company / organisation",
   q_email:"Email", q_phone:"Phone / WhatsApp", q_country:"Country",q_currency:"Preferred quote currency", q_type:"Event type",
   q_pax:"Number of attendees", q_pax_ph:"e.g. 5000", q_date:"Event date",
   q_sizes:"Size(s) and quantity",
@@ -1618,13 +1623,13 @@ if (!document.querySelector('#cup-lines .cup-line')) addCupLine();
 updateMoq(false);/* ===== v44 : « même adresse » entre coordonnées et livraison ===== */
 (function(){
   const $ = id => document.getElementById(id);
-  const ca = $('f-caddr'), cc = $('f-ccity'), fc = $('f-country'), same = $('same-addr'), wrap = $('same-wrap');
+  const ca = $('f-caddr'), cc = $('f-ccity'), fc = $('f-country'), same = $('same-addr'), wrap = $('same-wrap'), hint = $('same-hint');
   const da = $('f-address'), dcity = $('f-city'), dco = $('f-dcountry');
   const cname = () => fc.selectedIndex >= 0 ? fc.options[fc.selectedIndex].text : '';
   const sync = () => { if (same.checked) { da.value = ca.value; dcity.value = cc.value; dco.value = cname(); } };
   function refresh(){
     const has = !!ca.value.trim();
-    wrap.hidden = !has;
+    same.disabled = !has; if (hint) hint.hidden = has;
     if (!has && same.checked) { same.checked = false; apply(); } else sync();
   }
   function apply(){
@@ -1634,6 +1639,10 @@ updateMoq(false);/* ===== v44 : « même adresse » entre coordonnées et livrai
   }
   ca.addEventListener('input', refresh); cc.addEventListener('input', sync); fc.addEventListener('change', sync);
   same.addEventListener('change', apply);
+  /* Dès que le client choisit « Livraison » et qu'une adresse est déjà saisie plus haut, on la propose d'office (il peut décocher pour en saisir une autre) */
+  document.querySelectorAll('input[data-mode="delivery"]').forEach(r => r.addEventListener('change', () => {
+    if (r.checked && ca.value.trim() && !same.checked && !da.value.trim()) { same.checked = true; apply(); }
+  }));
   refresh();
 })();(function(){
   const f = document.getElementById('quote-form');
