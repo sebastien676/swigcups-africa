@@ -196,6 +196,11 @@ header{position:sticky;top:0;z-index:50;background:rgba(30,20,11,.94);backdrop-f
 .faq-master .faq-item{background:var(--sand);box-shadow:none}
 .faq-more .cl-guide{color:var(--amber2)}
 .faq-cta{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+#f-logo{padding:12px;cursor:pointer}
+#f-logo::file-selector-button{margin-right:12px;padding:8px 14px;border:0;border-radius:999px;background:var(--amber);color:var(--ink);font-weight:800;cursor:pointer}
+.logo-help{margin-top:6px;font-size:.82rem;line-height:1.5;color:#D8C7AE}
+.logo-list{margin-top:6px;font-size:.85rem;font-weight:700;color:var(--sand);word-break:break-word}
+.logo-list.err{color:#FF9A92}
 .send-note{margin-top:14px;font-size:.85rem;line-height:1.5;color:#D8C7AE;max-width:560px}
 .q-thanks .btn-wa{margin-top:12px;display:inline-block}
 .step .ico{font-size:1.9rem;display:block;margin-bottom:14px}
@@ -766,7 +771,7 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
     <p class="lede" data-i18n="q_lede"></p>
     <div class="q-thanks" id="q-thanks" hidden><b data-i18n="q_thx_t"></b><span data-i18n="q_thx_p"></span> <a class="btn btn-wa" id="thx-wa" hidden target="_blank" rel="noopener" data-i18n="q_thx_wa"></a> <a class="btn btn-wa" id="thx-wa2" hidden target="_blank" rel="noopener" data-i18n="q_thx_wa2"></a></div>
     <div class="quote-grid">
-      <form id="quote-form" action="https://formsubmit.co/sebastien@swigcups.co.za" method="POST">
+      <form id="quote-form" action="https://formsubmit.co/sebastien@swigcups.co.za" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="_subject" value="Devis swigcups.africa">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
@@ -850,6 +855,11 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
         <div class="form-section-title" data-i18n="q_sec_cups"></div>
         <div id="cup-lines"></div>
         <label class="chk add-line" id="add-line-wrap"><input type="checkbox" id="add-line"> <span id="add-line-txt"></span></label>
+        <label for="f-logo" data-i18n="q_logo_label"></label>
+        <input type="file" id="f-logo" name="attachment" accept=".ai,.eps,.pdf,.svg,.png,.jpg,.jpeg,image/png,image/jpeg,image/svg+xml,application/pdf,application/postscript" multiple>
+        <p class="logo-help" data-i18n="q_logo_help"></p>
+        <div class="logo-list" id="logo-list" aria-live="polite"></div>
+
         <!-- Logistique -->
         <div class="form-section-title" data-i18n="q_sec_logistics"></div>
         <label data-i18n="q_mode"></label>
@@ -1031,7 +1041,7 @@ fr: {
   q_city:"Ville", q_city_ph:"ex. Cape Town",
   q_deadline:"Date souhaitée (livraison ou collecte)", q_budget:"Budget estimé",
   q_msg:"Message / détails", q_msg_ph:"Dites-nous en plus sur votre projet, vos contraintes, vos idées…",
-  q_send:"Envoyer ma demande", q_guide:"Guide des techniques d'impression (PDF)", q_send_note:"Votre demande part par email et ouvre WhatsApp avec un message pré-rempli : appuyez sur « Envoyer » dans WhatsApp pour que nous la recevions aussi là-bas.", q_thx_wa:"Envoyer à Fred sur WhatsApp<small><span class='lg'><i class='fl fl-en'></i>Anglais</span><span class='lg'><i class='fl fl-za'></i>Zoulou</span><span class='lg'><i class='fl fl-za'></i>Xhosa</span></small>", q_thx_wa2:"Envoyer aussi à Sébastien sur WhatsApp<small><span class='lg'><i class='fl fl-fr'></i>Français</span><span class='lg'><i class='fl fl-en'></i>Anglais</span><span class='lg'><i class='fl fl-es'></i>Espagnol</span></small>", q_wa:"Envoyer sur WhatsApp",
+  q_send:"Envoyer ma demande", q_logo_label:"Votre logo ou visuel (facultatif)", q_logo_help:"Joignez ici le logo à imprimer : il nous parviendra avec votre demande. Idéal : AI, EPS, PDF ou SVG (vectoriel) ; PNG ou JPG haute résolution acceptés. 5 Mo maximum au total.", q_logo_err_size:"Fichiers trop lourds (5 Mo maximum au total). Réduisez-les, ou envoyez-les ensuite par WhatsApp ou par email.", q_logo_err_type:"Format non accepté. Formats acceptés : AI, EPS, PDF, SVG, PNG, JPG.", q_guide:"Guide des techniques d'impression (PDF)", q_send_note:"Votre demande part par email et ouvre WhatsApp avec un message pré-rempli : appuyez sur « Envoyer » dans WhatsApp pour que nous la recevions aussi là-bas.", q_thx_wa:"Envoyer à Fred sur WhatsApp<small><span class='lg'><i class='fl fl-en'></i>Anglais</span><span class='lg'><i class='fl fl-za'></i>Zoulou</span><span class='lg'><i class='fl fl-za'></i>Xhosa</span></small>", q_thx_wa2:"Envoyer aussi à Sébastien sur WhatsApp<small><span class='lg'><i class='fl fl-fr'></i>Français</span><span class='lg'><i class='fl fl-en'></i>Anglais</span><span class='lg'><i class='fl fl-es'></i>Espagnol</span></small>", q_wa:"Envoyer sur WhatsApp",
   q_types:["Festival de musique","Événement sportif","Événement corporate","École / université","Brasserie / marque","Autre"],
   q_prints:["Je ne sais pas encore","Sérigraphie (min. 200)","DTF UV (min. 50)","Étiquette Full Colour (min. 8 000)"],
   q_colors_opt:["Je ne sais pas encore","1 couleur","2 couleurs","3 couleurs","4 couleurs","Couleurs illimitées / photo"],
@@ -1164,7 +1174,7 @@ en: {
   q_city:"City", q_city_ph:"e.g. Cape Town",
   q_deadline:"Needed by (delivery or collection)", q_budget:"Estimated budget",
   q_msg:"Message / details", q_msg_ph:"Tell us more about your project, constraints, ideas…",
-  q_send:"Send my request", q_guide:"Printing techniques guide (PDF)", q_send_note:"Your request is sent by email and opens WhatsApp with a pre-filled message: press « Send » in WhatsApp so we receive it there too.", q_thx_wa:"Send to Fred on WhatsApp<small><span class='lg'><i class='fl fl-en'></i>English</span><span class='lg'><i class='fl fl-za'></i>Zulu</span><span class='lg'><i class='fl fl-za'></i>Xhosa</span></small>", q_thx_wa2:"Also send to Sébastien on WhatsApp<small><span class='lg'><i class='fl fl-fr'></i>French</span><span class='lg'><i class='fl fl-en'></i>English</span><span class='lg'><i class='fl fl-es'></i>Spanish</span></small>", q_wa:"Send on WhatsApp",
+  q_send:"Send my request", q_logo_label:"Your logo or artwork (optional)", q_logo_help:"Attach the logo to print here: it will reach us with your request. Ideal: AI, EPS, PDF or SVG (vector); high-resolution PNG or JPG accepted. 5 MB maximum in total.", q_logo_err_size:"Files too large (5 MB maximum in total). Please reduce them, or send them afterwards by WhatsApp or email.", q_logo_err_type:"Unsupported format. Accepted formats: AI, EPS, PDF, SVG, PNG, JPG.", q_guide:"Printing techniques guide (PDF)", q_send_note:"Your request is sent by email and opens WhatsApp with a pre-filled message: press « Send » in WhatsApp so we receive it there too.", q_thx_wa:"Send to Fred on WhatsApp<small><span class='lg'><i class='fl fl-en'></i>English</span><span class='lg'><i class='fl fl-za'></i>Zulu</span><span class='lg'><i class='fl fl-za'></i>Xhosa</span></small>", q_thx_wa2:"Also send to Sébastien on WhatsApp<small><span class='lg'><i class='fl fl-fr'></i>French</span><span class='lg'><i class='fl fl-en'></i>English</span><span class='lg'><i class='fl fl-es'></i>Spanish</span></small>", q_wa:"Send on WhatsApp",
   q_types:["Music festival","Sports event","Corporate event","School / university","Brewery / brand","Other"],
   q_prints:["Not sure yet","Screen Printing (min. 200)","DTF UV (min. 50)","Full Colour Labelling (min. 8,000)"],
   q_colors_opt:["Not sure yet","1 colour","2 colours","3 colours","4 colours","Unlimited / photo"],
@@ -1452,6 +1462,7 @@ function waUrl(num){
         ? [g("f-address"), g("f-city"), g("f-province"), g("f-dcountry")].filter(Boolean).join(", ")
         : (document.querySelector('input[data-mode]:checked') ? "Collection — Ormonde, Johannesburg" : ""))
     + line(L.deadline, g("f-deadline"))
+    + line("Logo", ((document.getElementById("f-logo") || {}).files || []).length ? (isFr ? "joint à l'email" : "attached to the email") : "")
     + line(L.msg, g("f-msg"));
   return `https://wa.me/${num || WA_FRED}?text=${encodeURIComponent(msg)}`;
 }
@@ -1647,7 +1658,7 @@ updateMoq(false);/* ===== v44 : « même adresse » entre coordonnées et livrai
       delivery_mode: (f.querySelector('input[data-mode]:checked') || {}).dataset?.mode || null,
       address: dm() === 'delivery' ? v('f-address') : v('f-caddr'), city: dm() === 'delivery' ? v('f-city') : v('f-ccity'), postal_code: v('f-cpost'), vat_number: v('f-vat'), registration_number: v('f-reg'),
       delivery_city: dm() === 'delivery' ? v('f-city') : 'Ormonde, Johannesburg (collection)', province: dm() === 'delivery' ? [v('f-province'), v('f-dcountry')].filter(Boolean).join(', ') : '', delivery_country: dm() === 'delivery' ? v('f-dcountry') : '',
-      deadline: v('f-deadline') || null, message: [v('f-msg'), "--- Cup lines ---\n" + linesTxt, v('f-caddr') ? "--- Billing address ---\n" + [v('f-caddr'), v('f-ccity'), v('f-cpost'), txt('f-country')].filter(Boolean).join(", ") : ""].filter(Boolean).join("\n\n"),
+      deadline: v('f-deadline') || null, message: [v('f-msg'), "--- Cup lines ---\n" + linesTxt, v('f-caddr') ? "--- Billing address ---\n" + [v('f-caddr'), v('f-ccity'), v('f-cpost'), txt('f-country')].filter(Boolean).join(", ") : "", (document.getElementById('f-logo') && document.getElementById('f-logo').files.length) ? "--- Logo file(s) attached to the email ---\n" + [...document.getElementById('f-logo').files].map(x => x.name).join(", ") : ""].filter(Boolean).join("\n\n"),
       currency: (document.getElementById('f-currency') && !document.getElementById('f-currency').disabled) ? v('f-currency') : 'ZAR',
       lang: lang, market: market, source: location.hostname || 'local',
       hp: (f.querySelector('[name=_honey]') || {}).value || ''
@@ -1704,6 +1715,24 @@ function buildPeak(){
 const _setLangPeak = window.setLang;
 window.setLang = function(l){ _setLangPeak(l); buildPeak(); };
 buildPeak();
+/* ---------- Logo à joindre : contrôle du type et du poids avant l'envoi (reçu par email avec la demande) ---------- */
+(function(){
+  const inp = document.getElementById("f-logo"), list = document.getElementById("logo-list"); if(!inp || !list) return;
+  const MAX = 5 * 1024 * 1024, OK = /\.(ai|eps|pdf|svg|png|jpe?g)$/i;
+  const fmt = n => n >= 1048576 ? (n / 1048576).toFixed(1) + (lang === "fr" ? " Mo" : " MB") : Math.max(1, Math.round(n / 1024)) + (lang === "fr" ? " Ko" : " KB");
+  function check(report){
+    const fs = [...inp.files], D = T[lang]; let total = 0, msg = "";
+    fs.forEach(f => { total += f.size; if(!OK.test(f.name)) msg = D.q_logo_err_type; });
+    if(!msg && total > MAX) msg = D.q_logo_err_size;
+    inp.setCustomValidity(msg);
+    list.textContent = fs.map(f => f.name + " (" + fmt(f.size) + ")").join(" · ") + (msg ? " — " + msg : "");
+    list.classList.toggle("err", !!msg);
+    if(msg && report) inp.reportValidity();
+  }
+  inp.addEventListener("change", () => check(true));
+  const _setLangLogo = window.setLang;
+  window.setLang = function(l){ _setLangLogo(l); check(false); };
+})();
 /* ---------- Vidéo « Comment ça marche » : le lecteur YouTube ne se charge qu'au clic ---------- */
 (function(){
   const b = document.getElementById("yt-how"); if(!b) return;
