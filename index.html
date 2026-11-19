@@ -196,8 +196,12 @@ header{position:sticky;top:0;z-index:50;background:rgba(30,20,11,.94);backdrop-f
 .faq-master .faq-item{background:var(--sand);box-shadow:none}
 .faq-more .cl-guide{color:var(--amber2)}
 .faq-cta{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
-#f-logo{padding:12px;cursor:pointer}
-#f-logo::file-selector-button{margin-right:12px;padding:8px 14px;border:0;border-radius:999px;background:var(--amber);color:var(--ink);font-weight:800;cursor:pointer}
+.file-pick{position:relative;display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:rgba(245,240,230,.06);border:1px solid rgba(245,240,230,.16);border-radius:12px;padding:12px}
+.file-pick #f-logo{position:absolute;left:12px;top:12px;width:1px;height:1px;opacity:0;padding:0;border:0;margin:0}
+.file-pick .file-btn{display:inline-block;margin:0;padding:9px 20px;border-radius:999px;background:var(--amber);color:var(--ink);font-weight:800;font-size:.95rem;letter-spacing:normal;text-transform:none;cursor:pointer}
+.file-pick .file-btn:hover{filter:brightness(1.08)}
+.file-pick #f-logo:focus-visible + .file-btn{outline:3px solid var(--sand);outline-offset:2px}
+.file-pick .file-name{font-size:.95rem;color:var(--sand)}
 .logo-help{margin-top:6px;font-size:.82rem;line-height:1.5;color:#D8C7AE}
 .logo-list{margin-top:6px;font-size:.85rem;font-weight:700;color:var(--sand);word-break:break-word}
 .logo-list.err{color:#FF9A92}
@@ -856,7 +860,11 @@ html.mkt-za .cta-row a[href="#map"]{display:none}
         <div id="cup-lines"></div>
         <label class="chk add-line" id="add-line-wrap"><input type="checkbox" id="add-line"> <span id="add-line-txt"></span></label>
         <label for="f-logo" data-i18n="q_logo_label"></label>
-        <input type="file" id="f-logo" name="attachment" accept=".ai,.eps,.pdf,.svg,.png,.jpg,.jpeg,image/png,image/jpeg,image/svg+xml,application/pdf,application/postscript" multiple>
+        <div class="file-pick">
+          <input type="file" id="f-logo" name="attachment" accept=".ai,.eps,.pdf,.svg,.png,.jpg,.jpeg,image/png,image/jpeg,image/svg+xml,application/pdf,application/postscript" multiple>
+          <label class="file-btn" for="f-logo" data-i18n="q_logo_btn"></label>
+          <span class="file-name" id="logo-name"></span>
+        </div>
         <p class="logo-help" data-i18n="q_logo_help"></p>
         <div class="logo-list" id="logo-list" aria-live="polite"></div>
 
@@ -1041,7 +1049,7 @@ fr: {
   q_city:"Ville", q_city_ph:"ex. Cape Town",
   q_deadline:"Date souhaitée (livraison ou collecte)", q_budget:"Budget estimé",
   q_msg:"Message / détails", q_msg_ph:"Dites-nous en plus sur votre projet, vos contraintes, vos idées…",
-  q_send:"Envoyer ma demande", q_logo_label:"Votre logo ou visuel (facultatif)", q_logo_help:"Joignez ici le logo à imprimer : il nous parviendra avec votre demande. Idéal : AI, EPS, PDF ou SVG (vectoriel) ; PNG ou JPG haute résolution acceptés. 5 Mo maximum au total.", q_logo_err_size:"Fichiers trop lourds (5 Mo maximum au total). Réduisez-les, ou envoyez-les ensuite par WhatsApp ou par email.", q_logo_err_type:"Format non accepté. Formats acceptés : AI, EPS, PDF, SVG, PNG, JPG.", q_guide:"Guide des techniques d'impression (PDF)", q_send_note:"Votre demande part par email et ouvre WhatsApp avec un message pré-rempli : appuyez sur « Envoyer » dans WhatsApp pour que nous la recevions aussi là-bas.", q_thx_wa:"Envoyer à Fred sur WhatsApp<small><span class='lg'><i class='fl fl-en'></i>Anglais</span><span class='lg'><i class='fl fl-za'></i>Zoulou</span><span class='lg'><i class='fl fl-za'></i>Xhosa</span></small>", q_thx_wa2:"Envoyer aussi à Sébastien sur WhatsApp<small><span class='lg'><i class='fl fl-fr'></i>Français</span><span class='lg'><i class='fl fl-en'></i>Anglais</span><span class='lg'><i class='fl fl-es'></i>Espagnol</span></small>", q_wa:"Envoyer sur WhatsApp",
+  q_send:"Envoyer ma demande", q_logo_label:"Votre logo ou visuel (facultatif)", q_logo_btn:"Choisir des fichiers", q_logo_none:"Aucun fichier sélectionné", q_logo_one:"1 fichier sélectionné", q_logo_many:"{n} fichiers sélectionnés", q_logo_help:"Joignez ici le logo à imprimer : il nous parviendra avec votre demande. Idéal : AI, EPS, PDF ou SVG (vectoriel) ; PNG ou JPG haute résolution acceptés. 5 Mo maximum au total.", q_logo_err_size:"Fichiers trop lourds (5 Mo maximum au total). Réduisez-les, ou envoyez-les ensuite par WhatsApp ou par email.", q_logo_err_type:"Format non accepté. Formats acceptés : AI, EPS, PDF, SVG, PNG, JPG.", q_guide:"Guide des techniques d'impression (PDF)", q_send_note:"Votre demande part par email et ouvre WhatsApp avec un message pré-rempli : appuyez sur « Envoyer » dans WhatsApp pour que nous la recevions aussi là-bas.", q_thx_wa:"Envoyer à Fred sur WhatsApp<small><span class='lg'><i class='fl fl-en'></i>Anglais</span><span class='lg'><i class='fl fl-za'></i>Zoulou</span><span class='lg'><i class='fl fl-za'></i>Xhosa</span></small>", q_thx_wa2:"Envoyer aussi à Sébastien sur WhatsApp<small><span class='lg'><i class='fl fl-fr'></i>Français</span><span class='lg'><i class='fl fl-en'></i>Anglais</span><span class='lg'><i class='fl fl-es'></i>Espagnol</span></small>", q_wa:"Envoyer sur WhatsApp",
   q_types:["Festival de musique","Événement sportif","Événement corporate","École / université","Brasserie / marque","Autre"],
   q_prints:["Je ne sais pas encore","Sérigraphie (min. 200)","DTF UV (min. 50)","Étiquette Full Colour (min. 8 000)"],
   q_colors_opt:["Je ne sais pas encore","1 couleur","2 couleurs","3 couleurs","4 couleurs","Couleurs illimitées / photo"],
@@ -1174,7 +1182,7 @@ en: {
   q_city:"City", q_city_ph:"e.g. Cape Town",
   q_deadline:"Needed by (delivery or collection)", q_budget:"Estimated budget",
   q_msg:"Message / details", q_msg_ph:"Tell us more about your project, constraints, ideas…",
-  q_send:"Send my request", q_logo_label:"Your logo or artwork (optional)", q_logo_help:"Attach the logo to print here: it will reach us with your request. Ideal: AI, EPS, PDF or SVG (vector); high-resolution PNG or JPG accepted. 5 MB maximum in total.", q_logo_err_size:"Files too large (5 MB maximum in total). Please reduce them, or send them afterwards by WhatsApp or email.", q_logo_err_type:"Unsupported format. Accepted formats: AI, EPS, PDF, SVG, PNG, JPG.", q_guide:"Printing techniques guide (PDF)", q_send_note:"Your request is sent by email and opens WhatsApp with a pre-filled message: press « Send » in WhatsApp so we receive it there too.", q_thx_wa:"Send to Fred on WhatsApp<small><span class='lg'><i class='fl fl-en'></i>English</span><span class='lg'><i class='fl fl-za'></i>Zulu</span><span class='lg'><i class='fl fl-za'></i>Xhosa</span></small>", q_thx_wa2:"Also send to Sébastien on WhatsApp<small><span class='lg'><i class='fl fl-fr'></i>French</span><span class='lg'><i class='fl fl-en'></i>English</span><span class='lg'><i class='fl fl-es'></i>Spanish</span></small>", q_wa:"Send on WhatsApp",
+  q_send:"Send my request", q_logo_label:"Your logo or artwork (optional)", q_logo_btn:"Choose files", q_logo_none:"No file selected", q_logo_one:"1 file selected", q_logo_many:"{n} files selected", q_logo_help:"Attach the logo to print here: it will reach us with your request. Ideal: AI, EPS, PDF or SVG (vector); high-resolution PNG or JPG accepted. 5 MB maximum in total.", q_logo_err_size:"Files too large (5 MB maximum in total). Please reduce them, or send them afterwards by WhatsApp or email.", q_logo_err_type:"Unsupported format. Accepted formats: AI, EPS, PDF, SVG, PNG, JPG.", q_guide:"Printing techniques guide (PDF)", q_send_note:"Your request is sent by email and opens WhatsApp with a pre-filled message: press « Send » in WhatsApp so we receive it there too.", q_thx_wa:"Send to Fred on WhatsApp<small><span class='lg'><i class='fl fl-en'></i>English</span><span class='lg'><i class='fl fl-za'></i>Zulu</span><span class='lg'><i class='fl fl-za'></i>Xhosa</span></small>", q_thx_wa2:"Also send to Sébastien on WhatsApp<small><span class='lg'><i class='fl fl-fr'></i>French</span><span class='lg'><i class='fl fl-en'></i>English</span><span class='lg'><i class='fl fl-es'></i>Spanish</span></small>", q_wa:"Send on WhatsApp",
   q_types:["Music festival","Sports event","Corporate event","School / university","Brewery / brand","Other"],
   q_prints:["Not sure yet","Screen Printing (min. 200)","DTF UV (min. 50)","Full Colour Labelling (min. 8,000)"],
   q_colors_opt:["Not sure yet","1 colour","2 colours","3 colours","4 colours","Unlimited / photo"],
@@ -1725,6 +1733,7 @@ buildPeak();
     fs.forEach(f => { total += f.size; if(!OK.test(f.name)) msg = D.q_logo_err_type; });
     if(!msg && total > MAX) msg = D.q_logo_err_size;
     inp.setCustomValidity(msg);
+    const nm = document.getElementById("logo-name"); if(nm) nm.textContent = fs.length === 0 ? D.q_logo_none : (fs.length === 1 ? D.q_logo_one : D.q_logo_many.replace("{n}", fs.length));
     list.textContent = fs.map(f => f.name + " (" + fmt(f.size) + ")").join(" · ") + (msg ? " — " + msg : "");
     list.classList.toggle("err", !!msg);
     if(msg && report) inp.reportValidity();
@@ -1732,6 +1741,7 @@ buildPeak();
   inp.addEventListener("change", () => check(true));
   const _setLangLogo = window.setLang;
   window.setLang = function(l){ _setLangLogo(l); check(false); };
+  check(false);
 })();
 /* ---------- Vidéo « Comment ça marche » : le lecteur YouTube ne se charge qu'au clic ---------- */
 (function(){
