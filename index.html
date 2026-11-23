@@ -1518,6 +1518,10 @@ var MAX_LINES = 5;
 var DTF_FROM = Date.UTC(2027, 0, 1);
 function dtfBlocked(){ return Date.now() < DTF_FROM; }
 const MOQ = { screenLow: 200, screenHigh: 500, dtf: 50, label: 8000 };
+var MOQ_GEN = {
+  en: "The minimum order is {n} cups in total (all sizes and colours combined).",
+  fr: "Le minimum de commande est de {n} gobelets au total (toutes tailles et couleurs confondues)."
+};
 const MOQ_ERR = {
   en: "The minimum for this technique is {min} cups in total (all sizes and lines using this technique combined).",
   fr: "Le minimum pour cette technique est de {min} gobelets au total (toutes tailles et lignes avec cette technique cumulées)."
@@ -1589,7 +1593,7 @@ function addCupLine(){
 /* Minimum par technique : somme des sections qui utilisent la même technique (0 = pas de minimum tant que la technique/couleurs ne sont pas choisies) */
 function moqFor(pi, group){
   const maxC = Math.max(0, ...group.map(l => l.colourIdx));
-  if (pi === 1) return maxC === 0 ? 0 : (maxC >= 3 ? MOQ.screenHigh : MOQ.screenLow);
+  if (pi === 1) return maxC >= 3 ? MOQ.screenHigh : MOQ.screenLow;
   if (pi === 2) return MOQ.dtf;
   if (pi === 3) return MOQ.label;
   return 0;
@@ -1601,6 +1605,11 @@ function updateMoq(report){
     const min = moqFor(pi, grp), total = grp.reduce((a, l) => a + (parseInt(l.qty, 10) || 0), 0);
     if (min && total > 0 && total < min) data.forEach((l, i) => { if (l.printIdx === pi) msgs[i] = (MOQ_ERR[lang] || MOQ_ERR.en).replace('{min}', fmtN(min)); });
   });
+  /* Technique pas encore choisie : minimum 200 (le DTF UV, seul à 50, est indisponible jusqu'au 1er janvier 2027 ; ensuite le plancher passe à 50) */
+  {
+    const all = data.reduce((a, l) => a + (parseInt(l.qty, 10) || 0), 0), floor = dtfBlocked() ? 200 : 50;
+    if (all > 0 && all < floor) data.forEach((l, i) => { if (l.printIdx === 0 && !msgs[i]) msgs[i] = (MOQ_GEN[lang] || MOQ_GEN.en).replace("{n}", fmtN(floor)); });
+  }
   boxes.forEach((q, i) => q.setCustomValidity(msgs[i]));
   if (report) {
     const own = report.closest ? report.closest('.cup-line') : null, ownIdx = own ? [...document.querySelectorAll('#cup-lines .cup-line')].indexOf(own) : -1;
@@ -1718,7 +1727,7 @@ window.setLang = function(l){ _setLangFaq(l); buildFaq(); };
 buildFaq();
 /* ---------- Bandeau d'information « haute saison » ----------
    Pour le retirer : mettre PEAK_SEASON à false (ou me demander de le faire). */
-const PEAK_SEASON = true;
+var PEAK_SEASON = true;
 function buildPeak(){
   const bar = document.getElementById("peak-bar"), tr = document.getElementById("peak-track");
   if(!bar || !tr) return;
